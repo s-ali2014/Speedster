@@ -87,11 +87,11 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     //Speaker. By default it takes no parameters and says announceText.
     public void speakText(){
         /*Speaks text from the announceText variable*/
-        tts.speak(announceText.getValue(), 1, null , "test");
+        tts.speak(announceText.getValue(), TextToSpeech.QUEUE_FLUSH, null , "test");
     }
     public void speakText(CharSequence toSpeak){
         /*Speaks text from the given CharSequence. NOTE: Strings are char sequences*/
-        tts.speak(toSpeak, 1, null , "test");
+        tts.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null , "test");
     }
     //Release the TTS service when the app is destroyed
    protected void onDestroy() {
