@@ -1,4 +1,4 @@
-package com.example.speedsterapp;
+package com.example.announcementsloading;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

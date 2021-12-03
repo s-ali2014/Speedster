@@ -1,6 +1,7 @@
 //Speedster Audible Speedometer
 //Version 0
 //Anna Langston
+//Sabran
 //[Add your name here when you add some code!]
 
 package com.example.announcementsloading;
@@ -12,45 +13,83 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import android.speech.tts.TextToSpeech;
 
+
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
+
 import android.util.Log;
 import android.view.View;
 
-import com.example.announcementsloading.ui.main.SectionsPagerAdapter;
-import com.example.announcementsloading.databinding.ActivityMainBinding;
 
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
-    private ActivityMainBinding binding;
     //GLOBAL-ENOUGH VARIABLES
     TextToSpeech tts;
     MutableLiveData<String> announceText = new MutableLiveData<String>();
+
+    TabLayout tablayout;
+    ViewPager2 pager2;
+    FragmentAdapter adapter;
     //Okay, So here's the thing. This lets us listen to this string and do things when it changes.
     //To use it's data, use announceText.getValue(); or you'll get an error! Also use announceText.SetValue("value");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        announceText.setValue(""); //Initialize announceText
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = binding.viewPager;
-        viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = binding.tabs;
-        tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = binding.fab;
+        announceText.setValue(""); //Initialize announceText
+
+        //Tab System
+        setContentView(R.layout.activity_main);
+
+
+        tablayout=findViewById(R.id.tab_layout);
+        pager2=findViewById(R.id.view_pager2);
+        FragmentManager frag_man=getSupportFragmentManager();
+        adapter = new FragmentAdapter(frag_man, getLifecycle());
+        pager2.setAdapter(adapter);
+
+        tablayout.addTab(tablayout.newTab().setText("Overview"));
+        tablayout.addTab(tablayout.newTab().setText("SETTINGS"));
+
+        tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                pager2.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        pager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                tablayout.selectTab(tablayout.getTabAt(position));
+            }
+        });
+
+//i hate this button now - Anna
+        FloatingActionButton fab = findViewById(R.id.fab);
+
+
 
         //ANNOUNCEMENT SYSTEM:
         tts=new TextToSpeech(MainActivity.this, this);
         announceText.observe(this, new Observer<String>() {
             /*This right here is our good 'ol announcement system. It's bare-bones and unrefined, but essentially, when announceText changes?
             speakText() is called to announce the new value.
-             */
+            */
             @Override
             public void onChanged(String s) {
                 speakText();
@@ -63,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                announceText.setValue("Yeet");
+                announceText.setValue("Your speed is: 0 miles per hour.");
                 Snackbar.make(view, "Hello World!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -87,14 +126,15 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     //Speaker. By default it takes no parameters and says announceText.
     public void speakText(){
         /*Speaks text from the announceText variable*/
-        tts.speak(announceText.getValue(), TextToSpeech.QUEUE_FLUSH, null , "test");
+        tts.speak(announceText.getValue(), TextToSpeech.QUEUE_FLUSH, null , "");
     }
     public void speakText(CharSequence toSpeak){
         /*Speaks text from the given CharSequence. NOTE: Strings are char sequences*/
-        tts.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null , "test");
+        tts.speak(toSpeak, 1, null , "test");
     }
+
     //Release the TTS service when the app is destroyed
-   protected void onDestroy() {
+    protected void onDestroy() {
         tts.shutdown(); //This is the end right?
         super.onDestroy();
     }
@@ -113,5 +153,4 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     //Data reading:
     //TODO: Implement GPS
     //TODO: Implement Bluetooth OBD2 info
-
 }
