@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Settings">
+
+    <TextView
+        android:id="@+id/pageCounts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:text="Max Speed"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/editTextNumber2"
+        android:layout_width="120dp"
+
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/pageCounts"
+        android:gravity="right"
+        android:hint="0"
+        android:inputType="number"
+        android:maxEms="2" />
+
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:layout_marginBottom="0dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="40dp"
+        android:paddingBottom="0dp"
+        android:text="Min Speed"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName2"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@+id/textView3"
+        android:gravity="right"
+        android:hint="0"
+        android:inputType="number"
+        android:maxEms="2" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:layout_marginBottom="0dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="90dp"
+        android:paddingBottom="0dp"
+        android:text="Announcement Mode"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@+id/textView5"
+        android:text="Speech" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="40dp"
+        android:text="Tune" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:layout_marginLeft="40dp"
+        android:text="Silent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:layout_marginBottom="0dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="180dp"
+        android:paddingBottom="0dp"
+        android:text="Frequency of Notification"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+         />
+
+    <EditText
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="220dp"
+        android:layout_toRightOf="@+id/textView6"
+        android:gravity="right"
+        android:hint="0"
+        android:inputType="number"
+        android:maxEms="2" />
+
+
+</FrameLayout>
