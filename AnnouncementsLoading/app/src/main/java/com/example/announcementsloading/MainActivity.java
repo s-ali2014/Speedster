@@ -9,6 +9,7 @@ package com.example.announcementsloading;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import android.speech.tts.TextToSpeech;
@@ -27,9 +28,17 @@ import android.view.View;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
-    //GLOBAL-ENOUGH VARIABLES
+    //Variables for TTS and Announcement handling
     TextToSpeech tts;
     MutableLiveData<String> announceText = new MutableLiveData<String>();
+    int maxAnnounceThreshold = 100;
+    int minAnnounceThreshold = 0;
+    int announceInterval = 10;
+    boolean useTTS = true;
+    boolean maxSpeedWarning = false;
+    int previousAnnouncement;
+    int announceCooldown = 5;
+
 
     TabLayout tablayout;
     ViewPager2 pager2;
@@ -81,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
 //i hate this button now - Anna
         FloatingActionButton fab = findViewById(R.id.fab);
-
+        RangeSlider speedRange = findViewById(R.id.speedRange);
 
 
         //ANNOUNCEMENT SYSTEM:
@@ -89,10 +98,15 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         announceText.observe(this, new Observer<String>() {
             /*This right here is our good 'ol announcement system. It's bare-bones and unrefined, but essentially, when announceText changes?
             speakText() is called to announce the new value.
+
+            WIP: cooldown system!
             */
             @Override
             public void onChanged(String s) {
-                speakText();
+                //int currentInterval = Integer.valueOf(announceText.getValue()) / announceInterval;
+               //if( currentInterval != previousAnnouncement){
+                   speakText();
+               //}
             }
         });
 
@@ -107,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                         .setAction("Action", null).show();
             }
         });
-
     }
 
     //TTS Initialization - WARNING: THIS DOES *NOT* WORK ON EMULATORS. IT WILL FAIL TO INITIALIZE EVERY TIME WITH A GENERIC ERROR CODE
@@ -125,8 +138,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
     //Speaker. By default it takes no parameters and says announceText.
     public void speakText(){
-        /*Speaks text from the announceText variable*/
+        /*Speaks text from the announceText variable, and resets the counter since last announce.*/
         tts.speak(announceText.getValue(), TextToSpeech.QUEUE_FLUSH, null , "");
+
     }
     public void speakText(CharSequence toSpeak){
         /*Speaks text from the given CharSequence. NOTE: Strings are char sequences*/
@@ -142,13 +156,11 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
     //Notes from Anna:
     //Announcement System:
-    //TODO: Listen for speed variable
     //TODO: Implement handling for onPause/background process things
     //TODO: Overload speakText
     //TODO: Find a way to implement settings for switching data listened to
     //TODO: Implement custom announcement settings
     //UI:
-    //TODO: Set up dummy UI for prototype
     //TODO: Set up speed display for general tab
     //Data reading:
     //TODO: Implement GPS
