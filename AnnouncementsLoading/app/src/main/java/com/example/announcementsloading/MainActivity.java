@@ -28,7 +28,7 @@ import android.view.View;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
-    //Variables for TTS and Announcement handling
+    //Variables
     TextToSpeech tts;
     MutableLiveData<String> announceText = new MutableLiveData<String>();
     int maxAnnounceThreshold = 100;
@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         super.onCreate(savedInstanceState);
         announceText.setValue(""); //Initialize announceText
 
-        //Tab System
+        /*--------------Tab System--------------*/
+
         setContentView(R.layout.activity_main);
 
 
@@ -88,12 +89,28 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             }
         });
 
-//i hate this button now - Anna
+
+        /*--------------UI Interactive Elements--------------*/
         FloatingActionButton fab = findViewById(R.id.fab);
         RangeSlider speedRange = findViewById(R.id.speedRange);
 
 
-        //ANNOUNCEMENT SYSTEM:
+        /*Button to be used for misc. debugging purposes.*/
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                announceText.setValue("0");
+                Snackbar.make(view, "Hello World!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+
+
+
+        /*--------------Announcement System: Initialization--------------*/
+
+
         tts=new TextToSpeech(MainActivity.this, this);
         announceText.observe(this, new Observer<String>() {
             /*This right here is our good 'ol announcement system. It's bare-bones and unrefined, but essentially, when announceText changes?
@@ -103,27 +120,16 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             */
             @Override
             public void onChanged(String s) {
-                //int currentInterval = Integer.valueOf(announceText.getValue()) / announceInterval;
-               //if( currentInterval != previousAnnouncement){
-                   speakText();
-               //}
-            }
-        });
-
-
-
-        //BUTTON. USE THIS FOR DEBUGGING FOR NOW.
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                announceText.setValue("Your speed is: 0 miles per hour.");
-                Snackbar.make(view, "Hello World!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                speakText();
             }
         });
     }
 
-    //TTS Initialization - WARNING: THIS DOES *NOT* WORK ON EMULATORS. IT WILL FAIL TO INITIALIZE EVERY TIME WITH A GENERIC ERROR CODE
+    /*--------------TTS System--------------*/
+    /*TTS Initialization - WARNING: THIS DOES *NOT* WORK ON EMULATORS. IT WILL FAIL TO INITIALIZE EVERY TIME WITH A GENERIC ERROR CODE*/
+
+
+
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
             int result = tts.setLanguage(Locale.US);
@@ -131,25 +137,26 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 Log.e("error", "This Language is not supported");
             }
         } else if (status == -1){Log.e("DON'T USE EMULATOR", "TTS WONT WORK FOR SOME REASON. USE PHYSICAL DEVICE INSTEAD.");}
-            else {
+        else {
             Log.e("error code", Integer.toString(status));
         }
     }
 
-    //Speaker. By default it takes no parameters and says announceText.
     public void speakText(){
-        /*Speaks text from the announceText variable, and resets the counter since last announce.*/
+        /*Speaks text from the announceText variable.*/
         tts.speak(announceText.getValue(), TextToSpeech.QUEUE_FLUSH, null , "");
-
     }
+
     public void speakText(CharSequence toSpeak){
         /*Speaks text from the given CharSequence. NOTE: Strings are char sequences*/
         tts.speak(toSpeak, 1, null , "test");
     }
 
-    //Release the TTS service when the app is destroyed
+
+
+    /*--------------Application Shutdown--------------*/
     protected void onDestroy() {
-        tts.shutdown(); //This is the end right?
+        tts.shutdown(); //This is the end, right?
         super.onDestroy();
     }
 
@@ -157,9 +164,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     //Notes from Anna:
     //Announcement System:
     //TODO: Implement handling for onPause/background process things
-    //TODO: Overload speakText
     //TODO: Find a way to implement settings for switching data listened to
     //TODO: Implement custom announcement settings
+    //TODO: Tracking speed- another mutable live data?
     //UI:
     //TODO: Set up speed display for general tab
     //Data reading:
