@@ -6,42 +6,44 @@
 
 package com.example.announcementsloading;
 
+
+import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.slider.RangeSlider;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-
-import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.Log;
-import android.view.View;
-
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
-    //Variables
+public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
+
+    private final String[] locationsPermission = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+    private final int LOCATIONS_PERMISSION_REQUEST = 100;
+    private BroadcastReceiver locationReceiver;
+
+    //GLOBAL-ENOUGH VARIABLES
     TextToSpeech tts;
     MutableLiveData<String> announceText = new MutableLiveData<String>();
-    MutableLiveData<Integer> speed = new MutableLiveData<>();
-    int maxAnnounceThreshold = 100;
-    int minAnnounceThreshold = 0;
-    int announceInterval = 10;
-    boolean useTTS = true;
-    boolean maxSpeedWarning = false;
-    int previousAnnouncement;
-    int announceCooldown = 5;
-    boolean onCooldown = false;
 
     TabLayout tablayout;
     ViewPager2 pager2;
@@ -54,14 +56,13 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         super.onCreate(savedInstanceState);
         announceText.setValue(""); //Initialize announceText
 
-        /*--------------Tab System--------------*/
-
+        //Tab System
         setContentView(R.layout.activity_main);
 
 
-        tablayout=findViewById(R.id.tab_layout);
-        pager2=findViewById(R.id.view_pager2);
-        FragmentManager frag_man=getSupportFragmentManager();
+        tablayout = findViewById(R.id.tab_layout);
+        pager2 = findViewById(R.id.view_pager2);
+        FragmentManager frag_man = getSupportFragmentManager();
         adapter = new FragmentAdapter(frag_man, getLifecycle());
         pager2.setAdapter(adapter);
 
@@ -92,112 +93,148 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             }
         });
 
-
-        /*--------------UI Interactive Elements--------------*/
+//i hate this button now - Anna
         FloatingActionButton fab = findViewById(R.id.fab);
-        RangeSlider speedRange = findViewById(R.id.speedRange);
 
 
-        /*Button to be used for misc. debugging purposes.*/
+        //ANNOUNCEMENT SYSTEM:
+        tts = new TextToSpeech(MainActivity.this, this);
+        announceText.observe(this, new Observer<String>() {
+            /*This right here is our good 'ol announcement system. It's bare-bones and unrefined, but essentially, when announceText changes?
+            speakText() is called to announce the new value.
+            */
+            @Override
+            public void onChanged(String s) {
+                speakText();
+            }
+        });
+
+
+        //BUTTON. USE THIS FOR DEBUGGING FOR NOW.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                announceText.setValue("0");
+                announceText.setValue("Your speed is: 0 miles per hour.");
                 Snackbar.make(view, "Hello World!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
 
 
-
-
-        /*--------------Announcement System: Initialization--------------*/
-        /*This right here is our good 'ol announcement system. It's bare-bones and unrefined, but when the speed is changed, it checks if it's hit
-         a new milestone based on the increment, and then if the cooldown isn't running, it changes announceText to trigger the announcement!
-         TODO: Configure tone vs Speech settings.
-        */
-
-        tts=new TextToSpeech(MainActivity.this, this);
-        CountDownTimer cooldown = new CountDownTimer(announceCooldown * 1000,1000) {
-            @Override
-            public void onTick(long l) {
-
-            }
-
-            @Override
-            public void onFinish() {
-                onCooldown = false;
-            }
-        };
-
-
-        /*--------------Announcement System--------------*/
-
-
-        speed.observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer s) {
-                /*WARNING: This is untested!*/
-                if((speed.getValue() / announceInterval) != previousAnnouncement){
-                    announceText.setValue(Integer.toString(speed.getValue()));
-                    onCooldown = true;
-                    cooldown.start();
-                }
-            }
-        });
-
-        announceText.observe(this, new Observer<String>() {
-
-            @Override
-            public void onChanged(String s) {
-                speakText();
-            }
-        });
+        checkLocationPermission();
+        initLocationReceiver();
     }
 
-    /*--------------TTS System--------------*/
-    /*TTS Initialization - WARNING: THIS DOES *NOT* WORK ON EMULATORS. IT WILL FAIL TO INITIALIZE EVERY TIME WITH A GENERIC ERROR CODE*/
 
-
-
+    //TTS Initialization - WARNING: THIS DOES *NOT* WORK ON EMULATORS. IT WILL FAIL TO INITIALIZE EVERY TIME WITH A GENERIC ERROR CODE
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
             int result = tts.setLanguage(Locale.US);
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("error", "This Language is not supported");
             }
-        } else if (status == -1){Log.e("DON'T USE EMULATOR", "TTS WONT WORK FOR SOME REASON. USE PHYSICAL DEVICE INSTEAD.");}
-        else {
+        } else if (status == -1) {
+            Log.e("DON'T USE EMULATOR", "TTS WONT WORK FOR SOME REASON. USE PHYSICAL DEVICE INSTEAD.");
+        } else {
             Log.e("error code", Integer.toString(status));
         }
     }
 
-    public void speakText(){
-        /*Speaks text from the announceText variable.*/
-        tts.speak(announceText.getValue(), TextToSpeech.QUEUE_FLUSH, null , "");
+    //Speaker. By default it takes no parameters and says announceText.
+    public void speakText() {
+        /*Speaks text from the announceText variable*/
+        tts.speak(announceText.getValue(), TextToSpeech.QUEUE_FLUSH, null, "");
     }
 
-    public void speakText(CharSequence toSpeak){
+    public void speakText(CharSequence toSpeak) {
         /*Speaks text from the given CharSequence. NOTE: Strings are char sequences*/
-        tts.speak(toSpeak, 1, null , "test");
+        tts.speak(toSpeak, 1, null, "test");
     }
 
-
-
-    /*--------------Application Shutdown--------------*/
+    //Release the TTS service when the app is destroyed
     protected void onDestroy() {
-        tts.shutdown(); //This is the end, right?
+        tts.shutdown(); //This is the end right?
         super.onDestroy();
     }
 
 
+    private void checkLocationPermission() {
+        if (checkPermission(locationsPermission[0])
+                && checkPermission(locationsPermission[1])) {
+            startLocationService();
+        } else {
+            askForPermissions();
+        }
+    }
+
+    private void askForPermissions() {
+        ActivityCompat.requestPermissions(this, locationsPermission, LOCATIONS_PERMISSION_REQUEST);
+    }
+
+    private void startLocationService() {
+        Intent serviceIntent = new Intent(this, MyLocationService.class);
+        if (Build.VERSION.SDK_INT >= 26) {
+            startForegroundService(serviceIntent);
+        } else {
+            // Pre-O behavior.
+            startService(serviceIntent);
+        }
+    }
+
+    private boolean checkPermission(String permission) {
+        return ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == LOCATIONS_PERMISSION_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                startLocationService();
+            } else {
+                showLocationDeniedDialog();
+            }
+        } else super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void showLocationDeniedDialog() {
+        //TODO show dialog that describe to user how denying location permission will affect the app functionality
+    }
+
+    private void initLocationReceiver() {
+        locationReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().equals(MyLocationService.NEW_SPEED_RECORDED_ACTION)) {
+                    int speed = intent.getIntExtra(MyLocationService.SPEED_TAG, 0);
+                    //TODO do what you need todo in the new speed
+                    Toast.makeText(MainActivity.this, "Speed: " + speed, Toast.LENGTH_LONG).show();
+                }
+            }
+        };
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(locationReceiver, new IntentFilter(MyLocationService.NEW_SPEED_RECORDED_ACTION));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(locationReceiver);
+    }
+
     //Notes from Anna:
     //Announcement System:
+    //TODO: Listen for speed variable
     //TODO: Implement handling for onPause/background process things
+    //TODO: Overload speakText
     //TODO: Find a way to implement settings for switching data listened to
     //TODO: Implement custom announcement settings
-    //TODO: Tracking speed- another mutable live data?
     //UI:
+    //TODO: Set up dummy UI for prototype
     //TODO: Set up speed display for general tab
     //Data reading:
     //TODO: Implement GPS
