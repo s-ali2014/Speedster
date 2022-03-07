@@ -2,7 +2,7 @@
 //Version 0
 //Anna Langston
 //Sabran
-//[Add your name here when you add some code!]
+//Akram Hawsawi
 
 package com.example.announcementsloading;
 
