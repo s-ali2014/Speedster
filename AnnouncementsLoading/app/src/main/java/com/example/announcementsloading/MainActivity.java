@@ -12,6 +12,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+
+import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
 
 
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     //Variables
     TextToSpeech tts;
     MutableLiveData<String> announceText = new MutableLiveData<String>();
+    MutableLiveData<Integer> speed = new MutableLiveData<>();
     int maxAnnounceThreshold = 100;
     int minAnnounceThreshold = 0;
     int announceInterval = 10;
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     boolean maxSpeedWarning = false;
     int previousAnnouncement;
     int announceCooldown = 5;
-
+    boolean onCooldown = false;
 
     TabLayout tablayout;
     ViewPager2 pager2;
@@ -109,15 +112,42 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
 
         /*--------------Announcement System: Initialization--------------*/
-
+        /*This right here is our good 'ol announcement system. It's bare-bones and unrefined, but when the speed is changed, it checks if it's hit
+         a new milestone based on the increment, and then if the cooldown isn't running, it changes announceText to trigger the announcement!
+         TODO: Configure tone vs Speech settings.
+        */
 
         tts=new TextToSpeech(MainActivity.this, this);
-        announceText.observe(this, new Observer<String>() {
-            /*This right here is our good 'ol announcement system. It's bare-bones and unrefined, but essentially, when announceText changes?
-            speakText() is called to announce the new value.
+        CountDownTimer cooldown = new CountDownTimer(announceCooldown * 1000,1000) {
+            @Override
+            public void onTick(long l) {
 
-            WIP: cooldown system!
-            */
+            }
+
+            @Override
+            public void onFinish() {
+                onCooldown = false;
+            }
+        };
+
+
+        /*--------------Announcement System--------------*/
+
+
+        speed.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer s) {
+                /*WARNING: This is untested!*/
+                if((speed.getValue() / announceInterval) != previousAnnouncement){
+                    announceText.setValue(Integer.toString(speed.getValue()));
+                    onCooldown = true;
+                    cooldown.start();
+                }
+            }
+        });
+
+        announceText.observe(this, new Observer<String>() {
+
             @Override
             public void onChanged(String s) {
                 speakText();
