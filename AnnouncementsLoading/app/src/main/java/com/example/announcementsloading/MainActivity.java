@@ -2,6 +2,7 @@
 //Version 0
 //Anna Langston
 //Sabran
+//Ryan Narongvate
 //[Add your name here when you add some code!]
 
 package com.example.announcementsloading;
@@ -26,6 +27,9 @@ import android.view.View;
 
 
 import java.util.Locale;
+
+//Bluetooth
+import android.bluetooth.BluetoothAdapter;
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
     //Variables for TTS and Announcement handling
@@ -165,4 +169,133 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     //Data reading:
     //TODO: Implement GPS
     //TODO: Implement Bluetooth OBD2 info
+    //BLUETOOTH START
+    @Override
+    public void onServiceConnected(ComponentName className, IBinder binder) {
+        Log.d(TAG, className.toString() + " service is bound");
+        isServiceBound = true;
+        service = ((AbstractGatewayService.AbstractGatewayServiceBinder) binder).getService();
+        service.setContext(MainActivity.this);
+        Log.d(TAG, "Starting live data");
+        try {
+            service.startService();
+            if (preRequisites)
+                btStatusTextView.setText(getString(R.string.status_bluetooth_connected));
+        } catch (IOException ioe) {
+            Log.e(TAG, "Failure Starting live data");
+            btStatusTextView.setText(getString(R.string.status_bluetooth_error_connecting));
+            doUnbindService();
+        }
+    }
+[6:06 PM]
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        final BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (btAdapter != null)
+            bluetoothDefaultIsEnable = btAdapter.isEnabled();
+
+        // get Orientation sensor
+        List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ORIENTATION);
+        if (sensors.size() > 0)
+            orientSensor = sensors.get(0);
+        else
+            showDialog(NO_ORIENTATION_SENSOR);
+
+        // create a log instance for use by this application
+        triplog = TripLog.getInstance(this.getApplicationContext());
+
+        obdStatusTextView.setText(getString(R.string.status_obd_disconnected));
+    }
+[6:07 PM]
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (mLocService != null) {
+            mLocService.removeGpsStatusListener(this);
+            mLocService.removeUpdates(this);
+        }
+
+        releaseWakeLockIfHeld();
+        if (isServiceBound) {
+            doUnbindService();
+        }
+
+        endTrip();
+
+        final BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (btAdapter != null && btAdapter.isEnabled() && !bluetoothDefaultIsEnable)
+            btAdapter.disable();
+    }
+[6:07 PM]
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "Resuming..");
+        sensorManager.registerListener(orientListener, orientSensor,
+                SensorManager.SENSOR_DELAY_UI);
+        wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK,
+                "ObdReader");
+
+        // get Bluetooth device
+        final BluetoothAdapter btAdapter = BluetoothAdapter
+                .getDefaultAdapter();
+
+        preRequisites = btAdapter != null && btAdapter.isEnabled();
+        if (!preRequisites && prefs.getBoolean(ConfigActivity.ENABLE_BT_KEY, false)) {
+            preRequisites = btAdapter != null && btAdapter.enable();
+        }
+
+        gpsInit();
+
+        if (!preRequisites) {
+            showDialog(BLUETOOTH_DISABLED);
+            btStatusTextView.setText(getString(R.string.status_bluetooth_disabled));
+        } else {
+            btStatusTextView.setText(getString(R.string.status_bluetooth_ok));
+        }
+    }
+[6:07 PM]
+    private void doBindService() {
+        if (!isServiceBound) {
+            Log.d(TAG, "Binding OBD service..");
+            if (preRequisites) {
+                btStatusTextView.setText(getString(R.string.status_bluetooth_connecting));
+                Intent serviceIntent = new Intent(this, ObdGatewayService.class);
+                bindService(serviceIntent, serviceConn, Context.BIND_AUTO_CREATE);
+            } else {
+                btStatusTextView.setText(getString(R.string.status_bluetooth_disabled));
+                Intent serviceIntent = new Intent(this, MockObdGatewayService.class);
+                bindService(serviceIntent, serviceConn, Context.BIND_AUTO_CREATE);
+            }
+        }
+    }
+[6:07 PM]
+    private void doUnbindService() {
+        if (isServiceBound) {
+            if (service.isRunning()) {
+                service.stopService();
+                if (preRequisites)
+                    btStatusTextView.setText(getString(R.string.status_bluetooth_ok));
+            }
+            Log.d(TAG, "Unbinding OBD service..");
+            unbindService(serviceConn);
+            isServiceBound = false;
+            obdStatusTextView.setText(getString(R.string.status_obd_disconnected));
+        }
+    }
+[6:07 PM]
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_ENABLE_BT) {
+            if (resultCode == Activity.RESULT_OK) {
+                btStatusTextView.setText(getString(R.string.status_bluetooth_connected));
+            } else {
+                Toast.makeText(this, R.string.text_bluetooth_disabled, Toast.LENGTH_LONG).show();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    //BLUETOOTH END
 }
