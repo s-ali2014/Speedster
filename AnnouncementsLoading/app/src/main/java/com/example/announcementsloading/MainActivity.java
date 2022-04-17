@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.slider.RangeSlider;
+import com.google.android.material.slider.Slider;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
@@ -27,21 +28,27 @@ import android.util.Log;
 import android.view.View;
 
 
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
-    //Variables
+
+    /*===Variables====*/
+    /*Announcement & Settings:*/
     TextToSpeech tts;
     MutableLiveData<String> announceText = new MutableLiveData<String>();
     MutableLiveData<Integer> speed = new MutableLiveData<>();
-    int maxAnnounceThreshold = 100;
-    int minAnnounceThreshold = 0;
+    float maxAnnounceThreshold = 100;
+    float minAnnounceThreshold = 0;
     int announceInterval = 10;
     boolean useTTS = true;
     boolean maxSpeedWarning = false;
     int previousAnnouncement;
     int announceCooldown = 5;
     boolean onCooldown = false;
+
+
+
 
     TabLayout tablayout;
     ViewPager2 pager2;
@@ -97,17 +104,21 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         FloatingActionButton fab = findViewById(R.id.fab);
         RangeSlider speedRange = findViewById(R.id.speedRange);
 
+        /*Range slider for announcements of speeds*/
+
+
+
 
         /*Button to be used for misc. debugging purposes.*/
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 announceText.setValue("0");
-                Snackbar.make(view, "Hello World!", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Min Thresh:" + minAnnounceThreshold + "Max Thresh" + maxAnnounceThreshold, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-
+        /*--------------Initialization: Load Settings--------------*/
 
 
 
@@ -121,7 +132,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         CountDownTimer cooldown = new CountDownTimer(announceCooldown * 1000,1000) {
             @Override
             public void onTick(long l) {
-
             }
 
             @Override
@@ -132,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
 
         /*--------------Announcement System--------------*/
-
 
         speed.observe(this, new Observer<Integer>() {
             @Override
@@ -147,18 +156,23 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         });
 
         announceText.observe(this, new Observer<String>() {
-
             @Override
             public void onChanged(String s) {
                 speakText();
             }
         });
     }
+    //*----End of OnCreate----*//
+
+
+
+
+    /*--------------Settings UI/System--------------*/
+
+
 
     /*--------------TTS System--------------*/
     /*TTS Initialization - WARNING: THIS DOES *NOT* WORK ON EMULATORS. IT WILL FAIL TO INITIALIZE EVERY TIME WITH A GENERIC ERROR CODE*/
-
-
 
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
@@ -185,8 +199,11 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
 
     /*--------------Application Shutdown--------------*/
+
     protected void onDestroy() {
-        tts.shutdown(); //This is the end, right?
+        tts.shutdown();
+        //TODO: Save settings here.
+
         super.onDestroy();
     }
 

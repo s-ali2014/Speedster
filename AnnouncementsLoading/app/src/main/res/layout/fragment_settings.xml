@@ -39,7 +39,7 @@
         tools:layout_conversion_absoluteWidth="205dp" />
 
     <com.google.android.material.slider.Slider
-        android:id="@+id/notificationFrequency"
+        android:id="@+id/intervalSlider"
         android:layout_width="284dp"
         android:layout_height="41dp"
         android:layout_marginStart="16dp"
@@ -80,6 +80,7 @@
         android:valueTo="100"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:minSeparation="0dp"
         app:values="@array/speed_slider_values"
         tools:layout_conversion_absoluteHeight="45dp"
         tools:layout_conversion_absoluteWidth="21dp" />

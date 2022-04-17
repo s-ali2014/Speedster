@@ -7,6 +7,11 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.slider.RangeSlider;
+import com.google.android.material.slider.Slider;
+
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Settings#newInstance} factory method to
@@ -51,6 +56,14 @@ public class Settings extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+
+
+
+
+
+
+
         }
     }
 
@@ -58,6 +71,35 @@ public class Settings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+
+
+        /*-------UI ELEMENTS------*/
+
+        //Range slider for announcements of speeds
+        RangeSlider speedRange = view.findViewById(R.id.speedRange);
+
+        speedRange.addOnSliderTouchListener(new RangeSlider.OnSliderTouchListener() {
+            @Override
+            public void onStartTrackingTouch(RangeSlider speedRange) {}
+
+            @Override
+            public void onStopTrackingTouch(RangeSlider speedRange) {
+                List<Float> rangeValues = speedRange.getValues();
+            }
+        });
+
+        Slider intervalSlider = view.findViewById(R.id.intervalSlider);
+        intervalSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+            @Override
+            public void onStartTrackingTouch(Slider intervalSlider) {}
+
+            @Override
+            public void onStopTrackingTouch(Slider intervalSlider) {
+                float intervalValue = intervalSlider.getValue();
+            }
+        });
+
+        return view;
     }
 }
