@@ -9,138 +9,139 @@
 
 
     <TextView
-        android:id="@+id/pageCounts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="116dp"
-        android:text="Max Speed"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="24dp"
-        tools:layout_conversion_absoluteWidth="91dp"
-        tools:layout_editor_absoluteX="24dp" />
-
-    <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="208dp"
         android:paddingBottom="0dp"
         android:text="Announcement Mode"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="24dp"
-        tools:layout_conversion_absoluteWidth="175dp"
-        tools:layout_editor_absoluteX="24dp" />
+        tools:layout_conversion_absoluteWidth="175dp" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="296dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="356dp"
         android:paddingBottom="0dp"
         android:text="Frequency of Notification"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="24dp"
-        tools:layout_conversion_absoluteWidth="205dp"
-        tools:layout_editor_absoluteX="24dp" />
+        tools:layout_conversion_absoluteWidth="205dp" />
 
-    <EditText
-        android:id="@+id/editTextNumber2"
+    <com.google.android.material.slider.Slider
+        android:id="@+id/notificationFrequency"
+        android:layout_width="284dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="388dp"
+        android:gravity="right"
+        android:hint="0"
+        android:maxEms="2"
+        android:stepSize="5.0"
+        android:valueFrom="5.0"
+        android:valueTo="15.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="45dp"
+        tools:layout_conversion_absoluteWidth="21dp" />
+
+    <Switch
+        android:id="@+id/maxSpeedWarn"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
-        android:layout_marginStart="210dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="305dp"
+        android:text="Play tone when over max speed? \n \n"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/speedRange"
+        android:layout_width="284dp"
+
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="148dp"
+        android:gravity="right"
+        android:hint="0"
+        android:maxEms="2"
+        android:stepSize="10.0"
+        android:valueFrom="0"
+        android:valueTo="100"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:values="@array/speed_slider_values"
+        tools:layout_conversion_absoluteHeight="45dp"
+        tools:layout_conversion_absoluteWidth="21dp" />
+
+    <TextView
+        android:id="@+id/pageCounts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="216dp"
         android:layout_marginTop="124dp"
-        android:gravity="right"
-        android:hint="0"
-        android:inputType="number"
-        android:maxEms="2"
+        android:text="Max Speed"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="45dp"
-        tools:layout_conversion_absoluteWidth="21dp" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="210dp"
-        android:layout_marginTop="160dp"
-        android:gravity="right"
-        android:hint="0"
-        android:inputType="number"
-        android:maxEms="2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="45dp"
-        tools:layout_conversion_absoluteWidth="21dp" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="216dp"
-        android:text="Speech"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="48dp"
-        tools:layout_conversion_absoluteWidth="79dp"
-        tools:layout_editor_absoluteX="64dp" />
-
-    <CheckBox
-        android:id="@+id/checkBox2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="236dp"
-        android:text="Tune"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="48dp"
-        tools:layout_conversion_absoluteWidth="64dp"
-        tools:layout_editor_absoluteX="64dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="210dp"
-        android:layout_marginTop="336dp"
-        android:gravity="right"
-        android:hint="0"
-        android:inputType="number"
-        android:maxEms="2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="45dp"
-        tools:layout_conversion_absoluteWidth="21dp" />
-
-    <CheckBox
-        android:id="@+id/checkBox3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="256dp"
-        android:text="Silent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="48dp"
-        tools:layout_conversion_absoluteWidth="67dp"
-        tools:layout_editor_absoluteX="64dp" />
+        tools:layout_conversion_absoluteHeight="24dp"
+        tools:layout_conversion_absoluteWidth="91dp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="156dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="124dp"
         android:paddingBottom="0dp"
         android:text="Min Speed"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="24dp"
-        tools:layout_conversion_absoluteWidth="87dp"
-        tools:layout_editor_absoluteX="24dp" />
+        tools:layout_conversion_absoluteWidth="87dp" />
+
+    <RadioButton
+        android:id="@+id/radSpeak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="232dp"
+        android:text="Spoken"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioButton
+        android:id="@+id/radTone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="232dp"
+        android:text="Tone"
+        app:layout_constraintStart_toEndOf="@+id/radSpeak"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/announceModes"
+        android:layout_width="248dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="232dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
