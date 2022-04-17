@@ -27,5 +27,16 @@
         android:hint="0"
         android:inputType="number" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_gravity="center|left"
+        android:paddingStart="20dp"
+        android:paddingLeft="20dp"
+        android:paddingEnd="20dp"
+        android:paddingRight="20dp"
+        android:text="TextView" />
+
 
 </FrameLayout>
