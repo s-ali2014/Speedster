@@ -3,7 +3,40 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.282" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/about_states.xml" value="0.282" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_about.xml" value="0.1" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_about_pressed.xml" value="0.1" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_circle_locked.xml" value="0.1" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_devices_locked.xml" value="0.1" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_devices_pressed.xml" value="0.1" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_help_pressed.xml" value="0.1" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_settings.xml" value="0.282" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_settings_locked.xml" value="0.282" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_settings_pressed.xml" value="0.282" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_start.xml" value="0.205" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_start_locked.xml" value="0.282" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_start_pressed.xml" value="0.282" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_stop.xml" value="0.282" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_support.xml" value="0.1" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_support_pressed.xml" value="0.282" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/settings_states.xml" value="0.22" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/start.xml" value="0.282" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/states_devices.xml" value="0.282" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/states_help.xml" value="0.282" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/states_settings.xml" value="0.282" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/states_start.xml" value="0.282" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/drawable/states_support.xml" value="0.282" />
+        <entry key="..\:/Android Studio/Projects/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_about_pressed.xml" value="0.22916666666666666" />
+        <entry key="..\:/Android Studio/Projects/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_devices_pressed.xml" value="0.22916666666666666" />
+        <entry key="..\:/Android Studio/Projects/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_help.xml" value="0.22916666666666666" />
+        <entry key="..\:/Android Studio/Projects/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_help_pressed.xml" value="0.22916666666666666" />
+        <entry key="..\:/Android Studio/Projects/Speedster/AnnouncementsLoading/app/src/main/res/drawable/button_settings.xml" value="0.22916666666666666" />
+        <entry key="..\:/Android Studio/Projects/Speedster/AnnouncementsLoading/app/src/main/res/layout/activity_main.xml" value="0.23489583333333333" />
+        <entry key="..\:/Android Studio/Projects/Speedster/AnnouncementsLoading/app/src/main/res/layout/fragment_main.xml" value="0.23489583333333333" />
+        <entry key="..\:/Android Studio/Projects/Speedster/AnnouncementsLoading/app/src/main/res/layout/fragment_settings.xml" value="0.23489583333333333" />
         <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/layout/activity_main.xml" value="0.266304347826087" />
+        <entry key="..\:/Users/Silcio/Documents/GitHub/Speedster/AnnouncementsLoading/app/src/main/res/layout/fragment_main.xml" value="0.33" />
         <entry key="..\:/Users/anna_000/AndroidStudioProjects/AnnouncementsLoading/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/anna_000/AndroidStudioProjects/AnnouncementsLoading/app/src/main/res/layout/fragment_main.xml" value="0.1" />
         <entry key="..\:/Users/anna_000/AndroidStudioProjects/AnnouncementsLoading/app/src/main/res/layout/fragment_overview.xml" value="0.36666666666666664" />

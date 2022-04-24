@@ -2,15 +2,19 @@
 //Version 0
 //Anna Langston
 //Sabran
-//[Add your name here when you add some code!]
+//Akram Hawsawi
 
 package com.example.announcementsloading;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+
+import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
 
 
@@ -24,25 +28,45 @@ import android.util.Log;
 import android.view.View;
 
 
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
-    //GLOBAL-ENOUGH VARIABLES
+
+    /*===Variables====*/
+    /*Announcement & Settings:*/
+
+    /*---Load Settings---*/
+    float maxAnnounceThreshold = 100;
+    float minAnnounceThreshold = 0;
+    int announceInterval = 10;
+    boolean useTTS = true;
+    boolean maxSpeedWarning = false;
+
+    /*---Announcement Variables---*/
     TextToSpeech tts;
     MutableLiveData<String> announceText = new MutableLiveData<String>();
+    MutableLiveData<Integer> speed = new MutableLiveData<>();
+
+    int previousAnnouncement;
+    int announceCooldown = 5;
+    boolean onCooldown = false;
+
+
+
 
     TabLayout tablayout;
     ViewPager2 pager2;
     FragmentAdapter adapter;
-    //Okay, So here's the thing. This lets us listen to this string and do things when it changes.
-    //To use it's data, use announceText.getValue(); or you'll get an error! Also use announceText.SetValue("value");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         announceText.setValue(""); //Initialize announceText
 
-        //Tab System
+        /*--------------Tab System--------------*/
+
         setContentView(R.layout.activity_main);
 
 
@@ -79,38 +103,89 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             }
         });
 
-//i hate this button now - Anna
+
+
+        /*--------------UI Interactive Elements--------------*/
         FloatingActionButton fab = findViewById(R.id.fab);
+        RangeSlider speedRange = findViewById(R.id.speedRange);
+
+        /*Range slider for announcements of speeds*/
 
 
 
-        //ANNOUNCEMENT SYSTEM:
+
+        /*Button to be used for misc. debugging purposes.*/
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                announceText.setValue("0");
+                Snackbar.make(view, "Min Thresh:" + minAnnounceThreshold + "Max Thresh" + maxAnnounceThreshold, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                maxAnnounceThreshold += 5;
+            }
+        });
+
+        /*--------------Announcement System: Initialization--------------*/
+        /*This right here is our good 'ol announcement system. It's bare-bones and unrefined, but when the speed is changed, it checks if it's hit
+         a new milestone based on the increment, and then if the cooldown isn't running, it changes announceText to trigger the announcement!
+         TODO: Configure tone vs Speech settings.
+        */
+
         tts=new TextToSpeech(MainActivity.this, this);
+        CountDownTimer cooldown = new CountDownTimer(announceCooldown * 1000,1000) {
+            @Override
+            public void onTick(long l) {
+            }
+
+            @Override
+            public void onFinish() {
+                onCooldown = false;
+            }
+        };
+
+        /*--------------Settings: Loading--------------*/
+
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        maxAnnounceThreshold = preferences.getFloat("maxAnnounceThreshold", 100);
+        minAnnounceThreshold = preferences.getFloat("minAnnounceThreshold", 0);
+        announceInterval = preferences.getInt("announceInterval", 10);
+        useTTS = preferences.getBoolean("useTTS", true);
+        maxSpeedWarning = preferences.getBoolean("maxSpeedWarning", false);
+
+        /*--------------Announcement System--------------*/
+
+        speed.observe(this, new Observer<Integer>() {
+            //Okay, So here's the thing. This lets us listen to this string and do things when it changes.
+            //To use it's data, use announceText.getValue(); or you'll get an error! Also use announceText.SetValue("value");
+            @Override
+            public void onChanged(Integer s) {
+                /*WARNING: This is untested!*/
+                if((speed.getValue() / announceInterval) != previousAnnouncement){
+                    announceText.setValue(Integer.toString(speed.getValue()));
+                    onCooldown = true;
+                    cooldown.start();
+                }
+            }
+        });
+
         announceText.observe(this, new Observer<String>() {
-            /*This right here is our good 'ol announcement system. It's bare-bones and unrefined, but essentially, when announceText changes?
-            speakText() is called to announce the new value.
-            */
             @Override
             public void onChanged(String s) {
                 speakText();
             }
         });
-
-
-
-        //BUTTON. USE THIS FOR DEBUGGING FOR NOW.
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                announceText.setValue("Your speed is: 0 miles per hour.");
-                Snackbar.make(view, "Hello World!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
     }
+    //*----End of OnCreate----*//
 
-    //TTS Initialization - WARNING: THIS DOES *NOT* WORK ON EMULATORS. IT WILL FAIL TO INITIALIZE EVERY TIME WITH A GENERIC ERROR CODE
+
+
+
+
+    /*--------------TTS System--------------*/
+    /*TTS Initialization - WARNING: THIS DOES *NOT* WORK ON EMULATORS. IT WILL FAIL TO INITIALIZE EVERY TIME WITH A GENERIC ERROR CODE*/
+
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
             int result = tts.setLanguage(Locale.US);
@@ -118,37 +193,53 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 Log.e("error", "This Language is not supported");
             }
         } else if (status == -1){Log.e("DON'T USE EMULATOR", "TTS WONT WORK FOR SOME REASON. USE PHYSICAL DEVICE INSTEAD.");}
-            else {
+        else {
             Log.e("error code", Integer.toString(status));
         }
     }
 
-    //Speaker. By default it takes no parameters and says announceText.
     public void speakText(){
-        /*Speaks text from the announceText variable*/
+        /*Speaks text from the announceText variable.*/
         tts.speak(announceText.getValue(), TextToSpeech.QUEUE_FLUSH, null , "");
     }
+
     public void speakText(CharSequence toSpeak){
         /*Speaks text from the given CharSequence. NOTE: Strings are char sequences*/
         tts.speak(toSpeak, 1, null , "test");
     }
 
-    //Release the TTS service when the app is destroyed
+
+
+    /*--------------Application Shutdown--------------*/
+
     protected void onDestroy() {
-        tts.shutdown(); //This is the end right?
+        /*--------------Save Settings--------------*/
+        /*Saves all current settings to the app's preferences file.*/
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putFloat("maxAnnounceThreshold", maxAnnounceThreshold);
+        editor.putFloat("minAnnounceThreshold", minAnnounceThreshold);
+        editor.putInt("announceInterval", announceInterval);
+        editor.putInt("announceCooldown", announceCooldown);
+        editor.putBoolean("useTTS", useTTS);
+        editor.putBoolean("maxSpeedWarning", maxSpeedWarning);
+        editor.commit();
+
+        /*--------------Shutdowns--------------*/
+
+        tts.shutdown();
+
         super.onDestroy();
     }
 
 
     //Notes from Anna:
     //Announcement System:
-    //TODO: Listen for speed variable
     //TODO: Implement handling for onPause/background process things
-    //TODO: Overload speakText
     //TODO: Find a way to implement settings for switching data listened to
     //TODO: Implement custom announcement settings
+    //TODO: Tracking speed- another mutable live data?
     //UI:
-    //TODO: Set up dummy UI for prototype
     //TODO: Set up speed display for general tab
     //Data reading:
     //TODO: Implement GPS
