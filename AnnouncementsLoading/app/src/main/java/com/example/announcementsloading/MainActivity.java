@@ -6,11 +6,11 @@
 
 package com.example.announcementsloading;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.slider.RangeSlider;
-import com.google.android.material.slider.Slider;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
@@ -35,14 +35,19 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
     /*===Variables====*/
     /*Announcement & Settings:*/
-    TextToSpeech tts;
-    MutableLiveData<String> announceText = new MutableLiveData<String>();
-    MutableLiveData<Integer> speed = new MutableLiveData<>();
+
+    /*---Load Settings---*/
     float maxAnnounceThreshold = 100;
     float minAnnounceThreshold = 0;
     int announceInterval = 10;
     boolean useTTS = true;
     boolean maxSpeedWarning = false;
+
+    /*---Announcement Variables---*/
+    TextToSpeech tts;
+    MutableLiveData<String> announceText = new MutableLiveData<String>();
+    MutableLiveData<Integer> speed = new MutableLiveData<>();
+
     int previousAnnouncement;
     int announceCooldown = 5;
     boolean onCooldown = false;
@@ -53,8 +58,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     TabLayout tablayout;
     ViewPager2 pager2;
     FragmentAdapter adapter;
-    //Okay, So here's the thing. This lets us listen to this string and do things when it changes.
-    //To use it's data, use announceText.getValue(); or you'll get an error! Also use announceText.SetValue("value");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         });
 
 
+
         /*--------------UI Interactive Elements--------------*/
         FloatingActionButton fab = findViewById(R.id.fab);
         RangeSlider speedRange = findViewById(R.id.speedRange);
@@ -116,11 +121,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 announceText.setValue("0");
                 Snackbar.make(view, "Min Thresh:" + minAnnounceThreshold + "Max Thresh" + maxAnnounceThreshold, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                maxAnnounceThreshold += 5;
             }
         });
-        /*--------------Initialization: Load Settings--------------*/
-
-
 
         /*--------------Announcement System: Initialization--------------*/
         /*This right here is our good 'ol announcement system. It's bare-bones and unrefined, but when the speed is changed, it checks if it's hit
@@ -140,10 +143,22 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             }
         };
 
+        /*--------------Settings: Loading--------------*/
+
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        maxAnnounceThreshold = preferences.getFloat("maxAnnounceThreshold", 100);
+        minAnnounceThreshold = preferences.getFloat("minAnnounceThreshold", 0);
+        announceInterval = preferences.getInt("announceInterval", 10);
+        useTTS = preferences.getBoolean("useTTS", true);
+        maxSpeedWarning = preferences.getBoolean("maxSpeedWarning", false);
 
         /*--------------Announcement System--------------*/
 
         speed.observe(this, new Observer<Integer>() {
+            //Okay, So here's the thing. This lets us listen to this string and do things when it changes.
+            //To use it's data, use announceText.getValue(); or you'll get an error! Also use announceText.SetValue("value");
             @Override
             public void onChanged(Integer s) {
                 /*WARNING: This is untested!*/
@@ -165,9 +180,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     //*----End of OnCreate----*//
 
 
-
-
-    /*--------------Settings UI/System--------------*/
 
 
 
@@ -201,8 +213,21 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     /*--------------Application Shutdown--------------*/
 
     protected void onDestroy() {
+        /*--------------Save Settings--------------*/
+        /*Saves all current settings to the app's preferences file.*/
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putFloat("maxAnnounceThreshold", maxAnnounceThreshold);
+        editor.putFloat("minAnnounceThreshold", minAnnounceThreshold);
+        editor.putInt("announceInterval", announceInterval);
+        editor.putInt("announceCooldown", announceCooldown);
+        editor.putBoolean("useTTS", useTTS);
+        editor.putBoolean("maxSpeedWarning", maxSpeedWarning);
+        editor.commit();
+
+        /*--------------Shutdowns--------------*/
+
         tts.shutdown();
-        //TODO: Save settings here.
 
         super.onDestroy();
     }
