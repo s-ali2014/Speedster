@@ -2,19 +2,17 @@
 //Version 0
 //Anna Langston
 //Sabran
-//Akram Hawsawi
+//Ryan Narongvate
+//[Add your name here when you add some code!]
 
 package com.example.announcementsloading;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
-
-import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
 
 
@@ -27,46 +25,47 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.util.Log;
 import android.view.View;
 
+import android.bluetooth.BluetoothAdapter;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.location.GpsStatus;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 
-import java.util.List;
 import java.util.Locale;
 
+//Bluetooth
+import android.bluetooth.BluetoothAdapter;
+
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
-
-    /*===Variables====*/
-    /*Announcement & Settings:*/
-
-    /*---Load Settings---*/
-    float maxAnnounceThreshold = 100;
-    float minAnnounceThreshold = 0;
+    //Variables for TTS and Announcement handling
+    TextToSpeech tts;
+    MutableLiveData<String> announceText = new MutableLiveData<String>();
+    int maxAnnounceThreshold = 100;
+    int minAnnounceThreshold = 0;
     int announceInterval = 10;
     boolean useTTS = true;
     boolean maxSpeedWarning = false;
-
-    /*---Announcement Variables---*/
-    TextToSpeech tts;
-    MutableLiveData<String> announceText = new MutableLiveData<String>();
-    MutableLiveData<Integer> speed = new MutableLiveData<>();
-
     int previousAnnouncement;
     int announceCooldown = 5;
-    boolean onCooldown = false;
-
-
 
 
     TabLayout tablayout;
     ViewPager2 pager2;
     FragmentAdapter adapter;
-
+    //Okay, So here's the thing. This lets us listen to this string and do things when it changes.
+    //To use it's data, use announceText.getValue(); or you'll get an error! Also use announceText.SetValue("value");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         announceText.setValue(""); //Initialize announceText
 
-        /*--------------Tab System--------------*/
-
+        //Tab System
         setContentView(R.layout.activity_main);
 
 
@@ -103,80 +102,162 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             }
         });
 
-
-
-        /*--------------UI Interactive Elements--------------*/
+//i hate this button now - Anna
         FloatingActionButton fab = findViewById(R.id.fab);
         RangeSlider speedRange = findViewById(R.id.speedRange);
 
-        /*Range slider for announcements of speeds*/
+
+        //ANNOUNCEMENT SYSTEM:
+        tts=new TextToSpeech(MainActivity.this, this);
+        announceText.observe(this, new Observer<String>() {
+            /*This right here is our good 'ol announcement system. It's bare-bones and unrefined, but essentially, when announceText changes?
+            speakText() is called to announce the new value.
+
+            WIP: cooldown system!
+            */
+            @Override
+            public void onChanged(String s) {
+                //int currentInterval = Integer.valueOf(announceText.getValue()) / announceInterval;
+                //if( currentInterval != previousAnnouncement){
+                speakText();
+                //}
+            }
+        });
 
 
 
-
-        /*Button to be used for misc. debugging purposes.*/
+        //BUTTON. USE THIS FOR DEBUGGING FOR NOW.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                announceText.setValue("0");
-                Snackbar.make(view, "Min Thresh:" + minAnnounceThreshold + "Max Thresh" + maxAnnounceThreshold, Snackbar.LENGTH_LONG)
+                announceText.setValue("Your speed is: 0 miles per hour.");
+                Snackbar.make(view, "Hello World!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                maxAnnounceThreshold += 5;
-            }
-        });
-
-        /*--------------Announcement System: Initialization--------------*/
-        /*This right here is our good 'ol announcement system. It's bare-bones and unrefined, but when the speed is changed, it checks if it's hit
-         a new milestone based on the increment, and then if the cooldown isn't running, it changes announceText to trigger the announcement!
-         TODO: Configure tone vs Speech settings.
-        */
-
-        tts=new TextToSpeech(MainActivity.this, this);
-        CountDownTimer cooldown = new CountDownTimer(announceCooldown * 1000,1000) {
-            @Override
-            public void onTick(long l) {
-            }
-
-            @Override
-            public void onFinish() {
-                onCooldown = false;
-            }
-        };
-
-        /*--------------Settings: Loading--------------*/
-
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-
-        maxAnnounceThreshold = preferences.getFloat("maxAnnounceThreshold", 100);
-        minAnnounceThreshold = preferences.getFloat("minAnnounceThreshold", 0);
-        announceInterval = preferences.getInt("announceInterval", 10);
-        useTTS = preferences.getBoolean("useTTS", true);
-        maxSpeedWarning = preferences.getBoolean("maxSpeedWarning", false);
-
-        /*--------------Announcement System--------------*/
-
-        speed.observe(this, new Observer<Integer>() {
-            //Okay, So here's the thing. This lets us listen to this string and do things when it changes.
-            //To use it's data, use announceText.getValue(); or you'll get an error! Also use announceText.SetValue("value");
-            @Override
-            public void onChanged(Integer s) {
-                /*WARNING: This is untested!*/
-                if((speed.getValue() / announceInterval) != previousAnnouncement){
-                    announceText.setValue(Integer.toString(speed.getValue()));
-                    onCooldown = true;
-                    cooldown.start();
-                }
-            }
-        });
-
-        announceText.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                speakText();
             }
         });
     }
+
+    //*--------------------Bluetooth Implementation--------------------*//
+    @Override
+    public void onServiceConnected(ComponentName className, IBinder binder) {
+        //Log.d(TAG, className.toString() + " service is bound");
+        isServiceBound = true;
+        service = ((AbstractGatewayService.AbstractGatewayServiceBinder) binder).getService();
+        service.setContext(MainActivity.this);
+        //Log.d(TAG, "Starting live data");
+        try {
+            service.startService();
+            if (preRequisites)
+                btStatusTextView.setText(getString(R.string.status_bluetooth_connected));
+        } catch (IOException ioe) {
+            //Log.e(TAG, "Failure Starting live data");
+            btStatusTextView.setText(getString(R.string.status_bluetooth_error_connecting));
+            doUnbindService();
+        }
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        final BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (btAdapter != null)
+            bluetoothDefaultIsEnable = btAdapter.isEnabled();
+
+        // aquire Orientation sensor
+        List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ORIENTATION);
+        if (sensors.size() > 0)
+            orientSensor = sensors.get(0);
+        else
+            showDialog(NO_ORIENTATION_SENSOR);
+
+
+        obdStatusTextView.setText(getString(R.string.status_obd_disconnected));
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (mLocService != null) {
+            mLocService.removeGpsStatusListener(this);
+            mLocService.removeUpdates(this);
+        }
+
+        releaseWakeLockIfHeld();
+        if (isServiceBound) {
+            doUnbindService();
+        }
+
+        endTrip();
+
+        final BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (btAdapter != null && btAdapter.isEnabled() && !bluetoothDefaultIsEnable)
+            btAdapter.disable();
+    }
+    protected void onResume() {
+        super.onResume();
+        //Log.d(TAG, "Resuming..");
+        sensorManager.registerListener(orientListener, orientSensor,
+                SensorManager.SENSOR_DELAY_UI);
+        wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK,
+                "ObdReader");
+
+        // get Bluetooth device
+        final BluetoothAdapter btAdapter = BluetoothAdapter
+                .getDefaultAdapter();
+
+        preRequisites = btAdapter != null && btAdapter.isEnabled();
+        if (!preRequisites && prefs.getBoolean(ConfigActivity.ENABLE_BT_KEY, false)) {
+            preRequisites = btAdapter != null && btAdapter.enable();
+        }
+
+        gpsInit();
+
+        if (!preRequisites) {
+            showDialog(BLUETOOTH_DISABLED);
+            btStatusTextView.setText(getString(R.string.status_bluetooth_disabled));
+        } else {
+            btStatusTextView.setText(getString(R.string.status_bluetooth_ok));
+        }
+    }
+    private void doBindService() {
+        if (!isServiceBound) {
+            //Log.d(TAG, "Binding OBD service..");
+            if (preRequisites) {
+                btStatusTextView.setText(getString(R.string.status_bluetooth_connecting));
+                Intent serviceIntent = new Intent(this, ObdGatewayService.class);
+                bindService(serviceIntent, serviceConn, Context.BIND_AUTO_CREATE);
+            } else {
+                btStatusTextView.setText(getString(R.string.status_bluetooth_disabled));
+                Intent serviceIntent = new Intent(this, MockObdGatewayService.class);
+                bindService(serviceIntent, serviceConn, Context.BIND_AUTO_CREATE);
+            }
+        }
+    }
+    private void doUnbindService() {
+        if (isServiceBound) {
+            if (service.isRunning()) {
+                service.stopService();
+                if (preRequisites)
+                    btStatusTextView.setText(getString(R.string.status_bluetooth_ok));
+            }
+            //Log.d(TAG, "Unbinding OBD service..");
+            unbindService(serviceConn);
+            isServiceBound = false;
+            obdStatusTextView.setText(getString(R.string.status_obd_disconnected));
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_ENABLE_BT) {
+            if (resultCode == Activity.RESULT_OK) {
+                btStatusTextView.setText(getString(R.string.status_bluetooth_connected));
+            } else {
+                Toast.makeText(this, R.string.text_bluetooth_disabled, Toast.LENGTH_LONG).show();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     //*----End of OnCreate----*//
 
 
@@ -186,6 +267,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     /*--------------TTS System--------------*/
     /*TTS Initialization - WARNING: THIS DOES *NOT* WORK ON EMULATORS. IT WILL FAIL TO INITIALIZE EVERY TIME WITH A GENERIC ERROR CODE*/
 
+
+    //TTS Initialization - WARNING: THIS DOES *NOT* WORK ON EMULATORS. IT WILL FAIL TO INITIALIZE EVERY TIME WITH A GENERIC ERROR CODE
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
             int result = tts.setLanguage(Locale.US);
@@ -198,37 +281,20 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         }
     }
 
+    //Speaker. By default it takes no parameters and says announceText.
     public void speakText(){
-        /*Speaks text from the announceText variable.*/
+        /*Speaks text from the announceText variable, and resets the counter since last announce.*/
         tts.speak(announceText.getValue(), TextToSpeech.QUEUE_FLUSH, null , "");
-    }
 
+    }
     public void speakText(CharSequence toSpeak){
         /*Speaks text from the given CharSequence. NOTE: Strings are char sequences*/
         tts.speak(toSpeak, 1, null , "test");
     }
 
-
-
-    /*--------------Application Shutdown--------------*/
-
+    //Release the TTS service when the app is destroyed
     protected void onDestroy() {
-        /*--------------Save Settings--------------*/
-        /*Saves all current settings to the app's preferences file.*/
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putFloat("maxAnnounceThreshold", maxAnnounceThreshold);
-        editor.putFloat("minAnnounceThreshold", minAnnounceThreshold);
-        editor.putInt("announceInterval", announceInterval);
-        editor.putInt("announceCooldown", announceCooldown);
-        editor.putBoolean("useTTS", useTTS);
-        editor.putBoolean("maxSpeedWarning", maxSpeedWarning);
-        editor.commit();
-
-        /*--------------Shutdowns--------------*/
-
-        tts.shutdown();
-
+        tts.shutdown(); //This is the end right?
         super.onDestroy();
     }
 
@@ -236,12 +302,13 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     //Notes from Anna:
     //Announcement System:
     //TODO: Implement handling for onPause/background process things
+    //TODO: Overload speakText
     //TODO: Find a way to implement settings for switching data listened to
     //TODO: Implement custom announcement settings
-    //TODO: Tracking speed- another mutable live data?
     //UI:
     //TODO: Set up speed display for general tab
     //Data reading:
     //TODO: Implement GPS
     //TODO: Implement Bluetooth OBD2 info
+
 }
