@@ -171,7 +171,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             showDialog(NO_ORIENTATION_SENSOR);
 
 
-        obdStatusTextView.setText(getString(R.string.status_obd_disconnected));
     }
     @Override
     protected void onDestroy() {
@@ -187,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             doUnbindService();
         }
 
-        endTrip();
+
 
         final BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
         if (btAdapter != null && btAdapter.isEnabled() && !bluetoothDefaultIsEnable)
@@ -210,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             preRequisites = btAdapter != null && btAdapter.enable();
         }
 
-        gpsInit();
+
 
         if (!preRequisites) {
             showDialog(BLUETOOTH_DISABLED);
