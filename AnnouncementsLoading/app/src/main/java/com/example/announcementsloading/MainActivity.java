@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     });
 
 }
-    }
+
 
     //*----End of OnCreate----*//
 private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
