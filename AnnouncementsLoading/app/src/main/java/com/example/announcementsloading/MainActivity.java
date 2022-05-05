@@ -138,6 +138,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     }
 
     //*--------------------Bluetooth Implementation--------------------*//
+    //using and modifying pires open source github
+    //https://github.com/pires/android-obd-reader
     @Override
     public void onServiceConnected(ComponentName className, IBinder binder) {
         //Log.d(TAG, className.toString() + " service is bound");
