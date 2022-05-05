@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
     MockBluetooth bluetooth = new MockBluetooth("speed");
     TextView textView2;
-    //String dummyText = val;
-    String dummyText = bluetooth.getSpeed();
+
+    String getSpeed = bluetooth.getSpeed();
 
     //GLOBAL-ENOUGH VARIABLES
     TextToSpeech tts;
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 speedLiteral = speed + "";
 
                 announceText.setValue("Your speed is: 0 miles per hour.");
-                Snackbar.make(view, "Hello World!", Snackbar.LENGTH_LONG)
+                Snackbar.make(view,"Your speed is " +getSpeed+ " mph", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
 
