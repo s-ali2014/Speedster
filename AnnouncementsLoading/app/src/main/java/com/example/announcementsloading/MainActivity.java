@@ -1,5 +1,5 @@
 //Speedster Audible Speedometer
-//Version 0
+//Version 1
 //Anna Langston
 //Sabran
 //Akram Hawsawi
@@ -118,20 +118,18 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                announceText.setValue("0");
+                announceText.setValue("0"); //Play audio to test tts
                 Snackbar.make(view, "Min Thresh:" + minAnnounceThreshold + "Max Thresh" + maxAnnounceThreshold, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                maxAnnounceThreshold += 5;
+                        .setAction("Action", null).show(); // dialogue used for debuggging, edit as needed
             }
         });
 
         /*--------------Announcement System: Initialization--------------*/
-        /*This right here is our good 'ol announcement system. It's bare-bones and unrefined, but when the speed is changed, it checks if it's hit
-         a new milestone based on the increment, and then if the cooldown isn't running, it changes announceText to trigger the announcement!
-         TODO: Configure tone vs Speech settings.
-        */
+        /*This right here is our good 'ol announcement system.*/
 
         tts=new TextToSpeech(MainActivity.this, this);
+
+        /*Cooldown Timer*/
         CountDownTimer cooldown = new CountDownTimer(announceCooldown * 1000,1000) {
             @Override
             public void onTick(long l) {
@@ -143,16 +141,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             }
         };
 
-        /*--------------Settings: Loading--------------*/
 
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-
-        maxAnnounceThreshold = preferences.getFloat("maxAnnounceThreshold", 100);
-        minAnnounceThreshold = preferences.getFloat("minAnnounceThreshold", 0);
-        announceInterval = preferences.getInt("announceInterval", 10);
-        useTTS = preferences.getBoolean("useTTS", true);
-        maxSpeedWarning = preferences.getBoolean("maxSpeedWarning", false);
 
         /*--------------Announcement System--------------*/
 
@@ -163,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             public void onChanged(Integer s) {
                 /*WARNING: This is untested!*/
                 if((speed.getValue() / announceInterval) != previousAnnouncement){
+                    //TODO: Tone announcement
                     announceText.setValue(Integer.toString(speed.getValue()));
                     onCooldown = true;
                     cooldown.start();
@@ -176,6 +166,18 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 speakText();
             }
         });
+
+
+        /*--------------Settings: Loading--------------*/
+
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        maxAnnounceThreshold = preferences.getFloat("maxAnnounceThreshold", 100);
+        minAnnounceThreshold = preferences.getFloat("minAnnounceThreshold", 0);
+        announceInterval = preferences.getInt("announceInterval", 10);
+        useTTS = preferences.getBoolean("useTTS", true);
+        maxSpeedWarning = preferences.getBoolean("maxSpeedWarning", false);
     }
     //*----End of OnCreate----*//
 
@@ -192,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("error", "This Language is not supported");
             }
-        } else if (status == -1){Log.e("DON'T USE EMULATOR", "TTS WONT WORK FOR SOME REASON. USE PHYSICAL DEVICE INSTEAD.");}
+        } else if (status == -1){Log.e("DON'T USE EMULATOR", "TTS WONT WORK FOR SOME REASON. USE PHYSICAL DEVICE INSTEAD. If not using emulator this is a generic error");}
         else {
             Log.e("error code", Integer.toString(status));
         }
@@ -214,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
     protected void onDestroy() {
         /*--------------Save Settings--------------*/
-        /*Saves all current settings to the app's preferences file.*/
+        /*Saves all current settings to the app's preferences file. Might be worth looking into if this should be done onPause as well/instead*/
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putFloat("maxAnnounceThreshold", maxAnnounceThreshold);
