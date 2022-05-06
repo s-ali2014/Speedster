@@ -1,4 +1,3 @@
-//Anna Langston
 package com.example.announcementsloading;
 
 import android.os.Bundle;
@@ -8,17 +7,12 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.slider.RangeSlider;
-import com.google.android.material.slider.Slider;
-
-import java.util.List;
-
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Settings#newInstance} factory method to
+ * Use the {@link Overview#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Settings extends Fragment {
+public class Overview extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +23,7 @@ public class Settings extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Settings() {
+    public Overview() {
         // Required empty public constructor
     }
 
@@ -39,11 +33,11 @@ public class Settings extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Settings.
+     * @return A new instance of fragment Overview.
      */
     // TODO: Rename and change types and number of parameters
-    public static Settings newInstance(String param1, String param2) {
-        Settings fragment = new Settings();
+    public static Overview newInstance(String param1, String param2) {
+        Overview fragment = new Overview();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -57,14 +51,6 @@ public class Settings extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-
-
-
-
-
-
-
-
         }
     }
 
@@ -72,35 +58,6 @@ public class Settings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_settings, container, false);
-
-
-        /*-------UI ELEMENTS------*/
-
-        //Range slider for announcements of speeds
-        RangeSlider speedRange = view.findViewById(R.id.speedRange);
-
-        speedRange.addOnSliderTouchListener(new RangeSlider.OnSliderTouchListener() {
-            @Override
-            public void onStartTrackingTouch(RangeSlider speedRange) {}
-
-            @Override
-            public void onStopTrackingTouch(RangeSlider speedRange) {
-                List<Float> rangeValues = speedRange.getValues();
-            }
-        });
-
-        Slider intervalSlider = view.findViewById(R.id.intervalSlider);
-        intervalSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
-            @Override
-            public void onStartTrackingTouch(Slider intervalSlider) {}
-
-            @Override
-            public void onStopTrackingTouch(Slider intervalSlider) {
-                float intervalValue = intervalSlider.getValue();
-            }
-        });
-
-        return view;
+        return inflater.inflate(R.layout.fragment_main, container, false);
     }
 }

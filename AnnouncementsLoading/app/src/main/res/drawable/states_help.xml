@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- UI asset source states, order is based on precedence -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--Show lock when disabled-->
+    <item android:drawable="@drawable/button_circle_locked"
+        android:state_enabled="false"/>
+
+    <!--Show pressed asset when pressed, otherwise base asset-->
+    <item android:drawable="@drawable/button_help_pressed"
+        android:state_pressed="true"/>
+    <item android:drawable="@drawable/button_help"/>
+</selector>
