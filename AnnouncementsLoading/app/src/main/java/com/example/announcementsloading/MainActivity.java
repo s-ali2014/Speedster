@@ -118,23 +118,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
 
         /*--------------UI Interactive Elements--------------*/
-        FloatingActionButton fab = findViewById(R.id.fab);
+
         RangeSlider speedRange = findViewById(R.id.speedRange);
 
-        /*Range slider for announcements of speeds*/
 
-
-
-
-        /*Button to be used for misc. debugging purposes.*/
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                announceText.setValue("0"); //Play audio to test tts
-                Snackbar.make(view, "Min Thresh:" + minAnnounceThreshold + "Max Thresh" + maxAnnounceThreshold, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show(); // dialogue used for debuggging, edit as needed
-            }
-        });
 
         /*--------------Announcement System: Initialization--------------*/
         /*This right here is our good 'ol announcement system.*/
