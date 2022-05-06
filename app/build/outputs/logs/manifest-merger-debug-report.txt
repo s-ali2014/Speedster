@@ -1,0 +1,257 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:2:1-38:12
+INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:2:1-38:12
+INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:2:1-38:12
+INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:2:1-38:12
+MERGED from [androidx.databinding:viewbinding:7.0.2] C:\Users\sabra\.gradle\caches\transforms-3\e983a23701fb221f92534e229f04beb8\transformed\jetified-viewbinding-7.0.2\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.material:material:1.3.0] C:\Users\sabra\.gradle\caches\transforms-3\2f068645d48754d46cf1ebed5c34ebc8\transformed\material-1.3.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\sabra\.gradle\caches\transforms-3\ea187a32d8b1b8062d7d9c4224699100\transformed\constraintlayout-2.0.4\AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\sabra\.gradle\caches\transforms-3\4a697a7e311e0d454db15ce0250c9c6d\transformed\appcompat-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\599bde1a67a1ca83064d7dd363e442d3\transformed\jetified-lifecycle-livedata-ktx-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\90502a08464c3e7036869d4a61ec3820\transformed\jetified-lifecycle-viewmodel-ktx-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-location:19.0.1] C:\Users\sabra\.gradle\caches\transforms-3\710a51e603a39e95c69fe6acc5bada43\transformed\jetified-play-services-location-19.0.1\AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\40b55b769dfd7cf7ab0e8c016ba8d37b\transformed\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\c9334cbec7433ae54388a2f3b959aeca\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\sabra\.gradle\caches\transforms-3\d9776d1a2f66a5f829495da37fe426ee\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:16:1-24:12
+MERGED from [com.google.android.gms:play-services-places-placereport:17.0.0] C:\Users\sabra\.gradle\caches\transforms-3\4ca033bff869a8a92aa9278fcfc7c222\transformed\jetified-play-services-places-placereport-17.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] C:\Users\sabra\.gradle\caches\transforms-3\8ca8c5471a98833727cf147874523d1b\transformed\jetified-play-services-tasks-18.0.1\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] C:\Users\sabra\.gradle\caches\transforms-3\a250bb42d2fbb52e1d126c6844a2e5a5\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:16:1-26:12
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\e18a2580967f59a4924fe8270e154724\transformed\fragment-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat-resources:1.2.0] C:\Users\sabra\.gradle\caches\transforms-3\fc4ec9a7459c67a242c6bf5586b4b05c\transformed\jetified-appcompat-resources-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\cd8cd19e52c47a9c87d35043479be476\transformed\drawerlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\669d7c860d54344646f9dbf62ed52042\transformed\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\a6a04364ce50ed0f5d079875b9086cd9\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\sabra\.gradle\caches\transforms-3\a8fdcb6042de6447107e7519d90bbd89\transformed\transition-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\e7c08ca5ced8fab86b370ebbc176df66\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\fad6394bbd44e680bb4ddcbb2cbcdab2\transformed\vectordrawable-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\b48334fa86f17520fe32962a89d8c001\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\9e91eb8d975682c7951df606becabb0f\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\07941aa37fef2ce6f7fc65e75b99244c\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\045e16e2624993503834c954c5c3ea7b\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\336907eb435a48db79d5e245d9ef937d\transformed\jetified-activity-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\f00679086e4cc36d002778a4ab89006e\transformed\recyclerview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\7c1421e0c9cf10a4a3665694546fadc9\transformed\customview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.3.1] C:\Users\sabra\.gradle\caches\transforms-3\466a8c5eb12f988721cc2cc2ef307c80\transformed\core-1.3.1\AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\d740e50646478f1d417e4693f141e50f\transformed\lifecycle-viewmodel-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\766dcf879b4e20fa7cef5faa55a40733\transformed\versionedparcelable-1.1.0\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\0c7c569ac63ec37b603ea744e8a85c03\transformed\lifecycle-livedata-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\0c65b71fec23eeb19a0e7a7567ebfb48\transformed\jetified-lifecycle-livedata-core-ktx-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\d9c73462f5f8c165258ca41869f9a310\transformed\lifecycle-livedata-core-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\sabra\.gradle\caches\transforms-3\780e364fd0ba517d699585ab2a1a7656\transformed\core-runtime-2.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.1.0] C:\Users\sabra\.gradle\caches\transforms-3\6a088d0d31eaa4a38f1809af23933cd1\transformed\lifecycle-runtime-2.1.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\543eccf0df4dcec8c90513f754da5308\transformed\jetified-savedstate-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\7bddefcf65f31fd4daa9ca35afbcc4b7\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\8c636e676f7a5cdf79b12e25b7f58b52\transformed\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\708f788ecadbc0a7ec3db72b2a8f335f\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\00ad26f294d29e2826f3ba551180c094\transformed\print-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.annotation:annotation-experimental:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\1ee2f71743a0c6c276436ab85f86c8cb\transformed\jetified-annotation-experimental-1.0.0\AndroidManifest.xml:17:1-24:12
+INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:2:1-38:12
+INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:2:1-38:12
+INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:2:1-38:12
+	package
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:3:5-47
+		INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:2:1-38:12
+		INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:2:1-38:12
+		INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:5:5-81
+	android:name
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:5:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:6:5-79
+	android:name
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:6:22-76
+uses-permission#android.permission.ACCESS_BACKGROUND_LOCATION
+ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:7:5-85
+	android:name
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:7:22-82
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:8:5-76
+	android:name
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:8:22-74
+application
+ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:11:5-36:19
+MERGED from [com.google.android.material:material:1.3.0] C:\Users\sabra\.gradle\caches\transforms-3\2f068645d48754d46cf1ebed5c34ebc8\transformed\material-1.3.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.3.0] C:\Users\sabra\.gradle\caches\transforms-3\2f068645d48754d46cf1ebed5c34ebc8\transformed\material-1.3.0\AndroidManifest.xml:22:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\sabra\.gradle\caches\transforms-3\ea187a32d8b1b8062d7d9c4224699100\transformed\constraintlayout-2.0.4\AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\sabra\.gradle\caches\transforms-3\ea187a32d8b1b8062d7d9c4224699100\transformed\constraintlayout-2.0.4\AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.gms:play-services-location:19.0.1] C:\Users\sabra\.gradle\caches\transforms-3\710a51e603a39e95c69fe6acc5bada43\transformed\jetified-play-services-location-19.0.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-location:19.0.1] C:\Users\sabra\.gradle\caches\transforms-3\710a51e603a39e95c69fe6acc5bada43\transformed\jetified-play-services-location-19.0.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\sabra\.gradle\caches\transforms-3\d9776d1a2f66a5f829495da37fe426ee\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\sabra\.gradle\caches\transforms-3\d9776d1a2f66a5f829495da37fe426ee\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.android.gms:play-services-places-placereport:17.0.0] C:\Users\sabra\.gradle\caches\transforms-3\4ca033bff869a8a92aa9278fcfc7c222\transformed\jetified-play-services-places-placereport-17.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-places-placereport:17.0.0] C:\Users\sabra\.gradle\caches\transforms-3\4ca033bff869a8a92aa9278fcfc7c222\transformed\jetified-play-services-places-placereport-17.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] C:\Users\sabra\.gradle\caches\transforms-3\8ca8c5471a98833727cf147874523d1b\transformed\jetified-play-services-tasks-18.0.1\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] C:\Users\sabra\.gradle\caches\transforms-3\8ca8c5471a98833727cf147874523d1b\transformed\jetified-play-services-tasks-18.0.1\AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] C:\Users\sabra\.gradle\caches\transforms-3\a250bb42d2fbb52e1d126c6844a2e5a5\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:20:5-24:19
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] C:\Users\sabra\.gradle\caches\transforms-3\a250bb42d2fbb52e1d126c6844a2e5a5\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:20:5-24:19
+MERGED from [androidx.core:core:1.3.1] C:\Users\sabra\.gradle\caches\transforms-3\466a8c5eb12f988721cc2cc2ef307c80\transformed\core-1.3.1\AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.3.1] C:\Users\sabra\.gradle\caches\transforms-3\466a8c5eb12f988721cc2cc2ef307c80\transformed\core-1.3.1\AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\766dcf879b4e20fa7cef5faa55a40733\transformed\versionedparcelable-1.1.0\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\766dcf879b4e20fa7cef5faa55a40733\transformed\versionedparcelable-1.1.0\AndroidManifest.xml:24:5-25:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.3.1] C:\Users\sabra\.gradle\caches\transforms-3\466a8c5eb12f988721cc2cc2ef307c80\transformed\core-1.3.1\AndroidManifest.xml:24:18-86
+	android:supportsRtl
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:17:9-35
+	android:label
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:15:9-41
+	android:roundIcon
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:16:9-54
+	android:icon
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:14:9-43
+	android:allowBackup
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:13:9-35
+	android:theme
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:18:9-58
+	android:name
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:12:9-28
+service#com.example.announcementsloading.MyLocationService
+ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:19:9-23:19
+	android:enabled
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:21:13-35
+	android:exported
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:22:13-36
+	android:name
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:20:13-46
+activity#com.example.announcementsloading.MainActivity
+ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:25:9-35:20
+	android:label
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:28:13-45
+	android:exported
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:27:13-36
+	android:theme
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:29:13-74
+	android:name
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:26:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:30:13-34:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:31:17-69
+	android:name
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:31:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:33:17-77
+	android:name
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml:33:27-74
+uses-sdk
+INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+MERGED from [androidx.databinding:viewbinding:7.0.2] C:\Users\sabra\.gradle\caches\transforms-3\e983a23701fb221f92534e229f04beb8\transformed\jetified-viewbinding-7.0.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.databinding:viewbinding:7.0.2] C:\Users\sabra\.gradle\caches\transforms-3\e983a23701fb221f92534e229f04beb8\transformed\jetified-viewbinding-7.0.2\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.3.0] C:\Users\sabra\.gradle\caches\transforms-3\2f068645d48754d46cf1ebed5c34ebc8\transformed\material-1.3.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.3.0] C:\Users\sabra\.gradle\caches\transforms-3\2f068645d48754d46cf1ebed5c34ebc8\transformed\material-1.3.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\sabra\.gradle\caches\transforms-3\ea187a32d8b1b8062d7d9c4224699100\transformed\constraintlayout-2.0.4\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\sabra\.gradle\caches\transforms-3\ea187a32d8b1b8062d7d9c4224699100\transformed\constraintlayout-2.0.4\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\sabra\.gradle\caches\transforms-3\4a697a7e311e0d454db15ce0250c9c6d\transformed\appcompat-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\sabra\.gradle\caches\transforms-3\4a697a7e311e0d454db15ce0250c9c6d\transformed\appcompat-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\599bde1a67a1ca83064d7dd363e442d3\transformed\jetified-lifecycle-livedata-ktx-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\599bde1a67a1ca83064d7dd363e442d3\transformed\jetified-lifecycle-livedata-ktx-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\90502a08464c3e7036869d4a61ec3820\transformed\jetified-lifecycle-viewmodel-ktx-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\90502a08464c3e7036869d4a61ec3820\transformed\jetified-lifecycle-viewmodel-ktx-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-location:19.0.1] C:\Users\sabra\.gradle\caches\transforms-3\710a51e603a39e95c69fe6acc5bada43\transformed\jetified-play-services-location-19.0.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-location:19.0.1] C:\Users\sabra\.gradle\caches\transforms-3\710a51e603a39e95c69fe6acc5bada43\transformed\jetified-play-services-location-19.0.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\40b55b769dfd7cf7ab0e8c016ba8d37b\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\40b55b769dfd7cf7ab0e8c016ba8d37b\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\c9334cbec7433ae54388a2f3b959aeca\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\c9334cbec7433ae54388a2f3b959aeca\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\sabra\.gradle\caches\transforms-3\d9776d1a2f66a5f829495da37fe426ee\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\sabra\.gradle\caches\transforms-3\d9776d1a2f66a5f829495da37fe426ee\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-places-placereport:17.0.0] C:\Users\sabra\.gradle\caches\transforms-3\4ca033bff869a8a92aa9278fcfc7c222\transformed\jetified-play-services-places-placereport-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-places-placereport:17.0.0] C:\Users\sabra\.gradle\caches\transforms-3\4ca033bff869a8a92aa9278fcfc7c222\transformed\jetified-play-services-places-placereport-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] C:\Users\sabra\.gradle\caches\transforms-3\8ca8c5471a98833727cf147874523d1b\transformed\jetified-play-services-tasks-18.0.1\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-tasks:18.0.1] C:\Users\sabra\.gradle\caches\transforms-3\8ca8c5471a98833727cf147874523d1b\transformed\jetified-play-services-tasks-18.0.1\AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] C:\Users\sabra\.gradle\caches\transforms-3\a250bb42d2fbb52e1d126c6844a2e5a5\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-basement:18.0.0] C:\Users\sabra\.gradle\caches\transforms-3\a250bb42d2fbb52e1d126c6844a2e5a5\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:18:5-43
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\e18a2580967f59a4924fe8270e154724\transformed\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\e18a2580967f59a4924fe8270e154724\transformed\fragment-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.2.0] C:\Users\sabra\.gradle\caches\transforms-3\fc4ec9a7459c67a242c6bf5586b4b05c\transformed\jetified-appcompat-resources-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.2.0] C:\Users\sabra\.gradle\caches\transforms-3\fc4ec9a7459c67a242c6bf5586b4b05c\transformed\jetified-appcompat-resources-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\cd8cd19e52c47a9c87d35043479be476\transformed\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\cd8cd19e52c47a9c87d35043479be476\transformed\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\669d7c860d54344646f9dbf62ed52042\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\669d7c860d54344646f9dbf62ed52042\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\a6a04364ce50ed0f5d079875b9086cd9\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\a6a04364ce50ed0f5d079875b9086cd9\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\sabra\.gradle\caches\transforms-3\a8fdcb6042de6447107e7519d90bbd89\transformed\transition-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] C:\Users\sabra\.gradle\caches\transforms-3\a8fdcb6042de6447107e7519d90bbd89\transformed\transition-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\e7c08ca5ced8fab86b370ebbc176df66\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\e7c08ca5ced8fab86b370ebbc176df66\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\fad6394bbd44e680bb4ddcbb2cbcdab2\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\fad6394bbd44e680bb4ddcbb2cbcdab2\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\b48334fa86f17520fe32962a89d8c001\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\b48334fa86f17520fe32962a89d8c001\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\9e91eb8d975682c7951df606becabb0f\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\9e91eb8d975682c7951df606becabb0f\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\07941aa37fef2ce6f7fc65e75b99244c\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\07941aa37fef2ce6f7fc65e75b99244c\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\045e16e2624993503834c954c5c3ea7b\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\045e16e2624993503834c954c5c3ea7b\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\336907eb435a48db79d5e245d9ef937d\transformed\jetified-activity-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\336907eb435a48db79d5e245d9ef937d\transformed\jetified-activity-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\f00679086e4cc36d002778a4ab89006e\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\f00679086e4cc36d002778a4ab89006e\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\7c1421e0c9cf10a4a3665694546fadc9\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\7c1421e0c9cf10a4a3665694546fadc9\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.3.1] C:\Users\sabra\.gradle\caches\transforms-3\466a8c5eb12f988721cc2cc2ef307c80\transformed\core-1.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.3.1] C:\Users\sabra\.gradle\caches\transforms-3\466a8c5eb12f988721cc2cc2ef307c80\transformed\core-1.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\d740e50646478f1d417e4693f141e50f\transformed\lifecycle-viewmodel-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\d740e50646478f1d417e4693f141e50f\transformed\lifecycle-viewmodel-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\766dcf879b4e20fa7cef5faa55a40733\transformed\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\sabra\.gradle\caches\transforms-3\766dcf879b4e20fa7cef5faa55a40733\transformed\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\0c7c569ac63ec37b603ea744e8a85c03\transformed\lifecycle-livedata-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\0c7c569ac63ec37b603ea744e8a85c03\transformed\lifecycle-livedata-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\0c65b71fec23eeb19a0e7a7567ebfb48\transformed\jetified-lifecycle-livedata-core-ktx-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\0c65b71fec23eeb19a0e7a7567ebfb48\transformed\jetified-lifecycle-livedata-core-ktx-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\d9c73462f5f8c165258ca41869f9a310\transformed\lifecycle-livedata-core-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] C:\Users\sabra\.gradle\caches\transforms-3\d9c73462f5f8c165258ca41869f9a310\transformed\lifecycle-livedata-core-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\sabra\.gradle\caches\transforms-3\780e364fd0ba517d699585ab2a1a7656\transformed\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\sabra\.gradle\caches\transforms-3\780e364fd0ba517d699585ab2a1a7656\transformed\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.1.0] C:\Users\sabra\.gradle\caches\transforms-3\6a088d0d31eaa4a38f1809af23933cd1\transformed\lifecycle-runtime-2.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.1.0] C:\Users\sabra\.gradle\caches\transforms-3\6a088d0d31eaa4a38f1809af23933cd1\transformed\lifecycle-runtime-2.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\543eccf0df4dcec8c90513f754da5308\transformed\jetified-savedstate-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\543eccf0df4dcec8c90513f754da5308\transformed\jetified-savedstate-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\7bddefcf65f31fd4daa9ca35afbcc4b7\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\7bddefcf65f31fd4daa9ca35afbcc4b7\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\8c636e676f7a5cdf79b12e25b7f58b52\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\8c636e676f7a5cdf79b12e25b7f58b52\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\708f788ecadbc0a7ec3db72b2a8f335f\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\708f788ecadbc0a7ec3db72b2a8f335f\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\00ad26f294d29e2826f3ba551180c094\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\00ad26f294d29e2826f3ba551180c094\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\1ee2f71743a0c6c276436ab85f86c8cb\transformed\jetified-annotation-experimental-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.annotation:annotation-experimental:1.0.0] C:\Users\sabra\.gradle\caches\transforms-3\1ee2f71743a0c6c276436ab85f86c8cb\transformed\jetified-annotation-experimental-1.0.0\AndroidManifest.xml:20:5-22:41
+INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\sabra\AndroidStudioProjects\Get-Speed\Speedster-Get-Speed\AnnouncementsLoading\app\src\main\AndroidManifest.xml
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\sabra\.gradle\caches\transforms-3\d9776d1a2f66a5f829495da37fe426ee\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\sabra\.gradle\caches\transforms-3\d9776d1a2f66a5f829495da37fe426ee\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:22:19-43
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\sabra\.gradle\caches\transforms-3\d9776d1a2f66a5f829495da37fe426ee\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:21:19-78
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\sabra\.gradle\caches\transforms-3\d9776d1a2f66a5f829495da37fe426ee\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:19-85
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:18.0.0] C:\Users\sabra\.gradle\caches\transforms-3\a250bb42d2fbb52e1d126c6844a2e5a5\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:21:9-23:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:18.0.0] C:\Users\sabra\.gradle\caches\transforms-3\a250bb42d2fbb52e1d126c6844a2e5a5\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:23:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:18.0.0] C:\Users\sabra\.gradle\caches\transforms-3\a250bb42d2fbb52e1d126c6844a2e5a5\transformed\jetified-play-services-basement-18.0.0\AndroidManifest.xml:22:13-58
