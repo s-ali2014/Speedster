@@ -6,7 +6,15 @@
 
 package com.example.announcementsloading;
 
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -18,6 +26,7 @@ import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
 
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -26,6 +35,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.Toast;
 
 
 import java.util.List;
@@ -52,8 +63,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     int announceCooldown = 5;
     boolean onCooldown = false;
 
-
-
+    boolean enable_bt = true;//bluetooth code
+    private BluetoothAdapter BA;
 
     TabLayout tablayout;
     ViewPager2 pager2;
@@ -70,9 +81,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         setContentView(R.layout.activity_main);
 
 
-        tablayout=findViewById(R.id.tab_layout);
-        pager2=findViewById(R.id.view_pager2);
-        FragmentManager frag_man=getSupportFragmentManager();
+        tablayout = findViewById(R.id.tab_layout);
+        pager2 = findViewById(R.id.view_pager2);
+        FragmentManager frag_man = getSupportFragmentManager();
         adapter = new FragmentAdapter(frag_man, getLifecycle());
         pager2.setAdapter(adapter);
 
@@ -127,10 +138,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         /*--------------Announcement System: Initialization--------------*/
         /*This right here is our good 'ol announcement system.*/
 
-        tts=new TextToSpeech(MainActivity.this, this);
+        tts = new TextToSpeech(MainActivity.this, this);
 
         /*Cooldown Timer*/
-        CountDownTimer cooldown = new CountDownTimer(announceCooldown * 1000,1000) {
+        CountDownTimer cooldown = new CountDownTimer(announceCooldown * 1000, 1000) {
             @Override
             public void onTick(long l) {
             }
@@ -151,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             @Override
             public void onChanged(Integer s) {
                 /*WARNING: This is untested!*/
-                if((speed.getValue() / announceInterval) != previousAnnouncement){
+                if ((speed.getValue() / announceInterval) != previousAnnouncement) {
                     //TODO: Tone announcement
                     announceText.setValue(Integer.toString(speed.getValue()));
                     onCooldown = true;
@@ -178,8 +189,51 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         announceInterval = preferences.getInt("announceInterval", 10);
         useTTS = preferences.getBoolean("useTTS", true);
         maxSpeedWarning = preferences.getBoolean("maxSpeedWarning", false);
+
+
+        //*------Bluetooth ------*//
+        IntentFilter filter = new IntentFilter();                  //
+        filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);   //Listening for bluetooth device to connect
+        this.registerReceiver(mReceiver, filter);                //
+
+        BA = BluetoothAdapter.getDefaultAdapter();  //199-205: Testing Bluetooth Compatibility on device
+        if (BA == null) {
+            Toast.makeText(this, "Bluetooth not supported", Toast.LENGTH_SHORT).show();
+            //finish();
+        } else if (BA.isEnabled()) {
+            enable_bt = true;
+        }
+
+        if (!enable_bt) { //if bluetooth is disable turn off bluetooth
+
+            if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
+
+                BA.disable();
+            }
+
+            Toast.makeText(MainActivity.this, "Turned Off", Toast.LENGTH_SHORT).show();
+        } else { //if bluetooth is enabled, ask for bluetooth permission
+            Intent intentOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(intentOn, 0);
+            Toast.makeText(MainActivity.this, "Turned On", Toast.LENGTH_SHORT).show();
+        }
     }
+
+
+
     //*----End of OnCreate----*//
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) { //callback function when Bluetooth device is connected
+            String action = intent.getAction();
+            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+
+            if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) { //says when device is connected
+                Toast.makeText(MainActivity.this, "Device Connected", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+    //*------End of Bluetooth ------*//
 
 
 
