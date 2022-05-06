@@ -36,7 +36,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
-    public String val="Speed Declaration";
+   // public String val="Speed Declaration";
     private final String[] locationsPermission = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     private final int LOCATIONS_PERMISSION_REQUEST = 100;
     private BroadcastReceiver locationReceiver;
@@ -147,18 +147,22 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String speedLiteral;
+               // String speedLiteral;
 
-                int speed;
-                speedReader = new SpeedReader("010D");
-                speed = speedReader.getSpeed();
+                //int speed;
+                //speedReader = new SpeedReader("010D");
+                //speed = speedReader.getSpeed();
 
 
                // System.out.println("Debugging Speed: " +speed);
-                speedLiteral = speed + "";
+                //speedLiteral = speed + "";
 
                 announceText.setValue("Your speed is: 0 miles per hour.");
+<<<<<<< Updated upstream:AnnouncementsLoading/app/src/main/java/com/example/announcementsloading/MainActivity.java
                 Snackbar.make(view, "Hello World!", Snackbar.LENGTH_LONG)
+=======
+                Snackbar.make(view,"Your speed is " + getSpeed + " mph", Snackbar.LENGTH_LONG)
+>>>>>>> Stashed changes:app/src/main/java/com/example/announcementsloading/MainActivity.java
                         .setAction("Action", null).show();
 
 
