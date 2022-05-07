@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,6 +29,7 @@ import android.speech.tts.TextToSpeech;
 
 
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -214,9 +216,15 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
             Toast.makeText(MainActivity.this, "Turned Off", Toast.LENGTH_SHORT).show();
         } else { //if bluetooth is enabled, ask for bluetooth permission
-            Intent intentOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            /*Intent intentOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(intentOn, 0);
             Toast.makeText(MainActivity.this, "Turned On", Toast.LENGTH_SHORT).show();
+            */
+            //testing
+            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 180);
+            startActivity(discoverableIntent);
+
         }
     }
 
