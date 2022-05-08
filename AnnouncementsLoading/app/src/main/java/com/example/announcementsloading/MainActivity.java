@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 OverviewViewModel.speed.setValue(OverviewViewModel.speed.getValue()+3);
 
 
-                Snackbar.make(view, "speed: " + preferences.getFloat("maxAnnounceThreshold", 1), Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "interval: " + preferences.getFloat("announceInterval", 1), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show(); // dialogue used for debugging, edit as needed
             }
         });
@@ -170,13 +170,13 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             //To use it's data, use announceText.getValue(); or you'll get an error! Also use announceText.SetValue("value");
             @Override
             public void onChanged(Integer s) {
-                /*WARNING: This is untested!*/
+                //Handles announcement frequency here
+                int currentInterval = (int) (OverviewViewModel.speed.getValue() / SettingsViewModel.announceInterval);
 
-
-                if ((OverviewViewModel.speed.getValue() / SettingsViewModel.announceInterval) != previousAnnouncement) {
+                if (currentInterval != previousAnnouncement && !onCooldown) {
                     //TODO: Tone announcement
                     announceText.setValue(Integer.toString(OverviewViewModel.speed.getValue()));
-
+                    previousAnnouncement = currentInterval;
                     onCooldown = true;
                     cooldown.start();
                 }
