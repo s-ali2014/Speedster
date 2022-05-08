@@ -19,7 +19,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
@@ -32,15 +31,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
+
 import android.widget.Toast;
 
 
-import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
@@ -48,20 +48,17 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     /*===Variables====*/
     /*Announcement & Settings:*/
 
+
+
     /*---Load Settings---*/
-    float maxAnnounceThreshold = 100;
-    float minAnnounceThreshold = 0;
-    int announceInterval = 10;
-    boolean useTTS = true;
-    boolean maxSpeedWarning = false;
+//See commit description
 
     /*---Announcement Variables---*/
     TextToSpeech tts;
-    MutableLiveData<String> announceText = new MutableLiveData<String>();
-    MutableLiveData<Integer> speed = new MutableLiveData<>();
+    MutableLiveData<String> announceText = new MutableLiveData<>();
+
 
     int previousAnnouncement;
-    int announceCooldown = 5;
     boolean onCooldown = false;
 
     boolean enable_bt = true;//bluetooth code
@@ -76,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         announceText.setValue(""); //Initialize announceText
+
+        OverviewViewModel.speed.setValue(0);
 
         /*--------------Tab System--------------*/
 
@@ -115,13 +114,20 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             }
         });
 
+        /*--------------Settings: Loading--------------*/
+
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        SettingsViewModel.maxAnnounceThreshold = preferences.getFloat("maxAnnounceThreshold", 100);
+        SettingsViewModel.minAnnounceThreshold = preferences.getFloat("minAnnounceThreshold", 0);
+        SettingsViewModel.announceInterval = preferences.getFloat("announceInterval", 10);
+        SettingsViewModel.useTTS = preferences.getBoolean("useTTS", true);
+        SettingsViewModel.maxSpeedWarning = preferences.getBoolean("maxSpeedWarning", false);
 
 
         /*--------------UI Interactive Elements--------------*/
         FloatingActionButton fab = findViewById(R.id.fab);
-        RangeSlider speedRange = findViewById(R.id.speedRange);
 
-        /*Range slider for announcements of speeds*/
 
 
 
@@ -130,9 +136,11 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                announceText.setValue("0"); //Play audio to test tts
-                Snackbar.make(view, "Min Thresh:" + minAnnounceThreshold + "Max Thresh" + maxAnnounceThreshold, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show(); // dialogue used for debuggging, edit as needed
+                OverviewViewModel.speed.setValue(OverviewViewModel.speed.getValue()+3);
+
+
+                Snackbar.make(view, "speed: " + preferences.getFloat("maxAnnounceThreshold", 1), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show(); // dialogue used for debugging, edit as needed
             }
         });
 
@@ -142,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         tts = new TextToSpeech(MainActivity.this, this);
 
         /*Cooldown Timer*/
-        CountDownTimer cooldown = new CountDownTimer(announceCooldown * 1000, 1000) {
+        CountDownTimer cooldown = new CountDownTimer(SettingsViewModel.announceCooldown * 1000, 1000) {
             @Override
             public void onTick(long l) {
             }
@@ -157,39 +165,27 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
         /*--------------Announcement System--------------*/
 
-        speed.observe(this, new Observer<Integer>() {
+        OverviewViewModel.speed.observe(this, new Observer<Integer>() {
             //Okay, So here's the thing. This lets us listen to this string and do things when it changes.
             //To use it's data, use announceText.getValue(); or you'll get an error! Also use announceText.SetValue("value");
             @Override
             public void onChanged(Integer s) {
                 /*WARNING: This is untested!*/
-                if ((speed.getValue() / announceInterval) != previousAnnouncement) {
+
+
+                if ((OverviewViewModel.speed.getValue() / SettingsViewModel.announceInterval) != previousAnnouncement) {
                     //TODO: Tone announcement
-                    announceText.setValue(Integer.toString(speed.getValue()));
+                    announceText.setValue(Integer.toString(OverviewViewModel.speed.getValue()));
+
                     onCooldown = true;
                     cooldown.start();
                 }
             }
         });
 
-        announceText.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                speakText();
-            }
-        });
+        announceText.observe(this, s -> speakText());
 
 
-        /*--------------Settings: Loading--------------*/
-
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-
-        maxAnnounceThreshold = preferences.getFloat("maxAnnounceThreshold", 100);
-        minAnnounceThreshold = preferences.getFloat("minAnnounceThreshold", 0);
-        announceInterval = preferences.getInt("announceInterval", 10);
-        useTTS = preferences.getBoolean("useTTS", true);
-        maxSpeedWarning = preferences.getBoolean("maxSpeedWarning", false);
 
 
         //*------Bluetooth ------*//
@@ -220,9 +216,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         }
     }
 
-
-
     //*----End of OnCreate----*//
+
+
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) { //callback function when Bluetooth device is connected
@@ -274,12 +270,12 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         /*Saves all current settings to the app's preferences file. Might be worth looking into if this should be done onPause as well/instead*/
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putFloat("maxAnnounceThreshold", maxAnnounceThreshold);
-        editor.putFloat("minAnnounceThreshold", minAnnounceThreshold);
-        editor.putInt("announceInterval", announceInterval);
-        editor.putInt("announceCooldown", announceCooldown);
-        editor.putBoolean("useTTS", useTTS);
-        editor.putBoolean("maxSpeedWarning", maxSpeedWarning);
+        editor.putFloat("maxAnnounceThreshold", SettingsViewModel.maxAnnounceThreshold);
+        editor.putFloat("minAnnounceThreshold", SettingsViewModel.minAnnounceThreshold);
+        editor.putFloat("announceInterval", SettingsViewModel.announceInterval);
+        editor.putInt("announceCooldown", SettingsViewModel.announceCooldown);
+        editor.putBoolean("useTTS", SettingsViewModel.useTTS);
+        editor.putBoolean("maxSpeedWarning", SettingsViewModel.maxSpeedWarning);
         editor.commit();
 
         /*--------------Shutdowns--------------*/
