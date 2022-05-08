@@ -6,7 +6,8 @@
 //Ryan Narongvate
 
 package com.example.announcementsloading;
-
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -32,7 +33,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
@@ -74,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         super.onCreate(savedInstanceState);
         announceText.setValue(""); //Initialize announceText
 
+
+
+
+        //Initialize speed.
         OverviewViewModel.speed.setValue(0);
 
         /*--------------Tab System--------------*/
@@ -117,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         /*--------------Settings: Loading--------------*/
 
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+
         SettingsViewModel.maxAnnounceThreshold = preferences.getFloat("maxAnnounceThreshold", 100);
         SettingsViewModel.minAnnounceThreshold = preferences.getFloat("minAnnounceThreshold", 0);
         SettingsViewModel.announceInterval = preferences.getFloat("announceInterval", 10);
@@ -130,21 +134,21 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
 
 
-
-
         /*Button to be used for misc. debugging purposes.*/
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OverviewViewModel.speed.setValue(OverviewViewModel.speed.getValue()+3);
+        fab.setOnClickListener(view -> {
+            OverviewViewModel.speed.setValue(OverviewViewModel.speed.getValue()+3);
 
 
-                Snackbar.make(view, "interval: " + preferences.getFloat("announceInterval", 1), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show(); // dialogue used for debugging, edit as needed
-            }
+            Snackbar.make(view, "interval: " + preferences.getFloat("announceInterval", 1), Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show(); // dialogue used for debugging, edit as needed
         });
 
-        /*--------------Announcement System: Initialization--------------*/
+
+
+        /*--------------Announcement System--------------*/
+        /*Anna Langston. Requires API Level 21+*/
+
+        /*---Announcement System: Initialization---*/
         /*This right here is our good 'ol announcement system.*/
 
         tts = new TextToSpeech(MainActivity.this, this);
@@ -162,20 +166,30 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         };
 
 
+        /*---Announcement System: Tone---*/
+        //NOTE: This requires API Level 21. That's lollipop (5.0) though so it should not be considered an issue.
+        AudioAttributes attributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION).setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build();
+        SoundPool tone = new SoundPool.Builder().setAudioAttributes(attributes).build();
+        int toneId = tone.load(this,R.raw.coin_2,1);
 
-        /*--------------Announcement System--------------*/
 
+        /*---Announcement System: Processing---*/
         OverviewViewModel.speed.observe(this, new Observer<Integer>() {
-            //Okay, So here's the thing. This lets us listen to this string and do things when it changes.
-            //To use it's data, use announceText.getValue(); or you'll get an error! Also use announceText.SetValue("value");
+            //Observes speed value for changes, using those changes to do announcements.
             @Override
             public void onChanged(Integer s) {
                 //Handles announcement frequency here
                 int currentInterval = (int) (OverviewViewModel.speed.getValue() / SettingsViewModel.announceInterval);
 
-                if (currentInterval != previousAnnouncement && !onCooldown) {
-                    //TODO: Tone announcement
-                    announceText.setValue(Integer.toString(OverviewViewModel.speed.getValue()));
+                if (!onCooldown && currentInterval != previousAnnouncement) {
+                    if(SettingsViewModel.useTTS) {
+                        //TTS Announcement
+                       announceText.setValue(Integer.toString(OverviewViewModel.speed.getValue()));
+                    }
+                    else{
+                        //Tone Announcement
+                        tone.play(toneId, 1,1,0,0,1);
+                    }
                     previousAnnouncement = currentInterval;
                     onCooldown = true;
                     cooldown.start();
@@ -188,7 +202,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
 
 
-        //*------Bluetooth ------*//
+        //*--------------Bluetooth--------------*//
+
         IntentFilter filter = new IntentFilter();                  //
         filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);   //Listening for bluetooth device to connect
         this.registerReceiver(mReceiver, filter);                //
@@ -276,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         editor.putInt("announceCooldown", SettingsViewModel.announceCooldown);
         editor.putBoolean("useTTS", SettingsViewModel.useTTS);
         editor.putBoolean("maxSpeedWarning", SettingsViewModel.maxSpeedWarning);
-        editor.commit();
+        editor.apply();
 
         /*--------------Shutdowns--------------*/
 
@@ -288,12 +303,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
     //Notes from Anna:
     //Announcement System:
-    //TODO: Implement handling for onPause/background process things
-    //TODO: Find a way to implement settings for switching data listened to
-    //TODO: Implement custom announcement settings
-    //TODO: Tracking speed- another mutable live data?
-    //UI:
-    //TODO: Set up speed display for general tab
+    /*TODO: All done!*/
+    
     //Data reading:
     //TODO: Implement GPS
     //TODO: Implement Bluetooth OBD2 info
