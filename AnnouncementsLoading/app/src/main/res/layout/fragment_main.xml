@@ -21,15 +21,15 @@
         app:layout_constraintTop_toBottomOf="@+id/button_start"
         app:layout_constraintVertical_bias="0.26" />
 
-    <EditText
-        android:id="@+id/editTextNumber3"
+    <TextView
+        android:id="@+id/lblSpeed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="center"
-        android:hint="0"
         android:inputType="number"
         android:minHeight="48dp"
+        android:text="0"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
