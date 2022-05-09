@@ -28,6 +28,7 @@ import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
 
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -63,7 +64,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     int previousAnnouncement;
     boolean onCooldown = false;
 
-    boolean enable_bt = true;//bluetooth code
+    boolean use_bt = true;//True if We want to use Bluetooth
+    boolean bt_enabled = false;//True if Bluetooth is Enabled
+
     private BluetoothAdapter BA;
 
     TabLayout tablayout;
@@ -215,31 +218,37 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             Toast.makeText(this, "Bluetooth not supported", Toast.LENGTH_SHORT).show();
             //finish();
         } else if (BA.isEnabled()) {
-            enable_bt = true;
+            bt_enabled = true;
         }
 
-        if (!enable_bt) { //if bluetooth is disable turn off bluetooth
-
-            if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
-
-                BA.disable();
+        if (use_bt) { //if we want to use Bluetooth
+            if (!bt_enabled){ //If Bluetooth is disabled, ask to enable Bluetooth
+                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) { //Ask for Bluetooth permission if not already given
+                    Toast.makeText(MainActivity.this, "Debugging", Toast.LENGTH_SHORT).show();
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 2);
+                } else{
+                    Intent intentOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivityForResult(intentOn, 0);
+                    bt_enabled = true;
+                }
             }
-
-            Toast.makeText(MainActivity.this, "Turned Off", Toast.LENGTH_SHORT).show();
-        } else { //if bluetooth is enabled, ask for bluetooth permission
-            /*Intent intentOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(intentOn, 0);
-            Toast.makeText(MainActivity.this, "Turned On", Toast.LENGTH_SHORT).show();
-            */
-            //testing
-            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 180);
-            startActivity(discoverableIntent);
-
         }
     }
 
     //*----End of OnCreate----*//
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permission, @NonNull int[] grantResults){
+        if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            try {
+                Intent intentOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(intentOn, 0);
+                bt_enabled = true;
+            } catch (SecurityException e){
+                throw e;
+            }
+        }
+
+    }
 
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
