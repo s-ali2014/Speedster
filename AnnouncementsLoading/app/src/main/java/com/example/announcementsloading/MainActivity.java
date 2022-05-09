@@ -215,8 +215,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
         BA = BluetoothAdapter.getDefaultAdapter();  //199-205: Testing Bluetooth Compatibility on device
         if (BA == null) {
-            Toast.makeText(this, "Bluetooth not supported", Toast.LENGTH_SHORT).show();
-            //finish();
+            //Toast.makeText(this, "Bluetooth not supported", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(android.R.id.content),"Bluetooth Not Supported",Snackbar.LENGTH_LONG).show();
         } else if (BA.isEnabled()) {
             bt_enabled = true;
         }
@@ -224,7 +224,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         if (use_bt) { //if we want to use Bluetooth
             if (!bt_enabled){ //If Bluetooth is disabled, ask to enable Bluetooth
                 if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) { //Ask for Bluetooth permission if not already given
-                    Toast.makeText(MainActivity.this, "Debugging", Toast.LENGTH_SHORT).show();
                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 2);
                 } else{
                     Intent intentOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -258,7 +257,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
             if (BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)) { //says when device is connected
-                Toast.makeText(MainActivity.this, "Device Connected", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(MainActivity.this, "Debugging", Toast.LENGTH_SHORT).show();
+
+                Snackbar.make(findViewById(android.R.id.content),"Device Connected",Snackbar.LENGTH_LONG).show();
             }
         }
     };
