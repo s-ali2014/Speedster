@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.slider.Slider;
@@ -73,13 +74,25 @@ public class Settings extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
-
+        SettingsViewModel model = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 
         /*-------UI ELEMENTS------*/
 
         //Range slider for announcements of speeds
+       Slider announceFreq = view.findViewById(R.id.intervalSlider);
         RangeSlider speedRange = view.findViewById(R.id.speedRange);
+        speedRange.setValues(model.minAnnounceThreshold, model.maxAnnounceThreshold);
 
+        announceFreq.addOnSliderTouchListener(new Slider.OnSliderTouchListener(){
+            @Override
+            public void onStartTrackingTouch(Slider announceFreq){}
+            public void onStopTrackingTouch(Slider announceFreq){
+                model.announceInterval = announceFreq.getValue();
+            }
+        });
+
+
+    /*---ANNOUNCE RANGE SLIDER---*/
         speedRange.addOnSliderTouchListener(new RangeSlider.OnSliderTouchListener() {
             @Override
             public void onStartTrackingTouch(RangeSlider speedRange) {}
@@ -87,6 +100,8 @@ public class Settings extends Fragment {
             @Override
             public void onStopTrackingTouch(RangeSlider speedRange) {
                 List<Float> rangeValues = speedRange.getValues();
+                model.minAnnounceThreshold = rangeValues.get(0);
+                model.maxAnnounceThreshold = rangeValues.get(1);
             }
         });
 

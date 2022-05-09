@@ -1,20 +1,17 @@
 package com.example.announcementsloading;
 
-import android.content.ClipData.Item;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
-
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link Overview#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class Overview extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -29,6 +26,15 @@ public class Overview extends Fragment {
     public Overview() {
         // Required empty public constructor
     }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment Overview.
+     */
     // TODO: Rename and change types and number of parameters
     public static Overview newInstance(String param1, String param2) {
         Overview fragment = new Overview();
@@ -49,24 +55,9 @@ public class Overview extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-        OverviewViewModel model = new ViewModelProvider(requireActivity()).get(OverviewViewModel.class);
-        TextView speedText = view.findViewById(R.id.lblSpeed);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        model.speed.observe(this, new Observer<Integer>() {
-            //Observe the speed, update the overview page as it changes
-            @Override
-            public void onChanged(Integer s) {
-                speedText.setText(String.valueOf(model.speed.getValue()));
-
-            }
-        });
-        return view;
+        return inflater.inflate(R.layout.fragment_main, container, false);
     }
-
-
-
 }
