@@ -14,12 +14,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.PRIORITY_MIN
 import com.google.android.gms.location.*
-import kotlin.math.roundToInt
 
 class MyLocationService : Service() {
 
     //Ten minutes
-    private val UPDATES_INTERVAL = 1 * 60 *  1000L
+    private val LOCATION_UPDATES_INTERVAL = 10 * 60 *  1000L
     private val MILES_INTERVAL = 5
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -77,7 +76,6 @@ class MyLocationService : Service() {
 
     @Synchronized
     private fun onNewLocation(location: Location) {
-        lastLocation = location
         val currentTime = System.currentTimeMillis()
         Log.i(TAG, "CurrentTime: $currentTime")
 
@@ -87,6 +85,7 @@ class MyLocationService : Service() {
 
         if (firstLocation == null) {
             firstLocation = location
+            lastLocation = location
             lastTime = currentTime
             Log.i(TAG, "lastTime: $currentTime")
             return
@@ -115,11 +114,12 @@ class MyLocationService : Service() {
         }
 
         lastTime = currentTime
+        lastLocation = location
     }
 
     private fun sendAverageSpeed(averageSpeed: Float) {
         sendBroadcast(Intent(NEW_SPEED_RECORDED_ACTION).apply {
-            putExtra(SPEED_TAG, averageSpeed.roundToInt())
+            putExtra(SPEED_TAG, averageSpeed)
         })
     }
 
@@ -129,12 +129,13 @@ class MyLocationService : Service() {
     }
 
     private fun calculateAverageSpeed(): Float {
-        return (speeds.sum() / speeds.count()) / 60 //To convert it per hour
+        return (speeds.sum() / speeds.count()) / 60.0f //To convert it per hour
     }
 
 
     private fun calculateLastDistanceTraveled(location: Location): Float {
-        return location.distanceTo(lastLocation).toMile()
+        val distanceInMeters = location.distanceTo(lastLocation)
+        return distanceInMeters.toMile()
     }
 
     private fun calculateTotalDistanceTraveled(location: Location): Float {
@@ -181,8 +182,8 @@ class MyLocationService : Service() {
 
     private fun createLocationRequest(): LocationRequest {
         return LocationRequest.create().apply {
-            interval = UPDATES_INTERVAL
-            fastestInterval = UPDATES_INTERVAL
+            interval = LOCATION_UPDATES_INTERVAL
+            fastestInterval = LOCATION_UPDATES_INTERVAL
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
     }
