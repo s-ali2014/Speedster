@@ -186,18 +186,20 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 //Handles announcement frequency here
                 int currentInterval = (int) (OverviewViewModel.speed.getValue() / SettingsViewModel.announceInterval);
 
-                if (!onCooldown && currentInterval != previousAnnouncement) {
-                    if(SettingsViewModel.useTTS) {
-                        //TTS Announcement
-                       announceText.setValue(Integer.toString(OverviewViewModel.speed.getValue()));
+                if(OverviewViewModel.speed.getValue() >= SettingsViewModel.minAnnounceThreshold && OverviewViewModel.speed.getValue() <= SettingsViewModel.maxAnnounceThreshold){
+                    if (!onCooldown && currentInterval != previousAnnouncement) {
+                        if(SettingsViewModel.useTTS) {
+                            //TTS Announcement
+                           announceText.setValue(Integer.toString(OverviewViewModel.speed.getValue()));
+                        }
+                        else{
+                            //Tone Announcement
+                            tone.play(toneId, 1,1,0,0,1);
+                        }
+                        previousAnnouncement = currentInterval;
+                        onCooldown = true;
+                        cooldown.start();
                     }
-                    else{
-                        //Tone Announcement
-                        tone.play(toneId, 1,1,0,0,1);
-                    }
-                    previousAnnouncement = currentInterval;
-                    onCooldown = true;
-                    cooldown.start();
                 }
             }
         });

@@ -27,10 +27,10 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="356dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="444dp"
         android:paddingBottom="0dp"
-        android:text="Frequency of Notification"
+        android:text="Notification Interval"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
         android:layout_width="284dp"
         android:layout_height="41dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="388dp"
+        android:layout_marginTop="468dp"
         android:gravity="right"
         android:hint="0"
         android:maxEms="2"
@@ -55,13 +55,13 @@
         tools:layout_conversion_absoluteHeight="45dp"
         tools:layout_conversion_absoluteWidth="21dp" />
 
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/maxSpeedWarn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="26dp"
         android:layout_marginTop="305dp"
-        android:text="Play tone when over max speed? \n \n"
+        android:text="Play tone when over max speed?"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
