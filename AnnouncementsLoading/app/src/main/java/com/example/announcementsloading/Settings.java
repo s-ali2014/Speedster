@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.slider.Slider;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.List;
 
@@ -77,16 +80,52 @@ public class Settings extends Fragment {
         SettingsViewModel model = new ViewModelProvider(requireActivity()).get(SettingsViewModel.class);
 
         /*-------UI ELEMENTS------*/
-
-        //Range slider for announcements of speeds
-       Slider announceFreq = view.findViewById(R.id.intervalSlider);
+        /*---Declarations---*/
+        Slider announceFreq = view.findViewById(R.id.intervalSlider);
+        Slider maxSpeed = view.findViewById(R.id.maxSpeedWarnSlider);
         RangeSlider speedRange = view.findViewById(R.id.speedRange);
-        speedRange.setValues(model.minAnnounceThreshold, model.maxAnnounceThreshold);
+        SwitchMaterial maxSpeedWarn = view.findViewById(R.id.maxSpeedWarn);
+        SwitchMaterial useTTS = view.findViewById(R.id.switchTTS);
+        Slider cooldown = view.findViewById(R.id.cooldownSlider);
 
+        /*---INITIALIZATION---*/
+        speedRange.setValues(model.minAnnounceThreshold, model.maxAnnounceThreshold);
+        maxSpeed.setValue(model.warnSpeed);
+        cooldown.setValue(model.announceCooldown);
+        useTTS.setChecked(model.useTTS);
+        maxSpeedWarn.setChecked(model.maxSpeedWarning);
+
+    /*USE TTS SWITCH*/
+    useTTS.setOnCheckedChangeListener((compoundButton, b) -> model.useTTS = useTTS.isChecked()
+    );
+    /*MAX SPEED WARN SWITCH*/
+        maxSpeedWarn.setOnCheckedChangeListener((compoundButton, b) -> model.useTTS = useTTS.isChecked()
+        );
+
+    /*COOLDOWN SLIDER*/
+        cooldown.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+            @Override
+            public void onStartTrackingTouch(@NonNull Slider cooldown) { }
+            @Override
+            public void onStopTrackingTouch(@NonNull Slider cooldown) {
+                model.announceCooldown = (int) cooldown.getValue();
+            }
+        });
+
+    /*---WARN SPEED SLIDER---*/
+        maxSpeed.addOnSliderTouchListener(new Slider.OnSliderTouchListener(){
+            @Override
+            public void onStartTrackingTouch(@NonNull Slider announceFreq){}
+            public void onStopTrackingTouch(@NonNull Slider announceFreq){
+                model.warnSpeed = maxSpeed.getValue();
+            }
+
+        });
+    /*---INTERVAL SLIDER---*/
         announceFreq.addOnSliderTouchListener(new Slider.OnSliderTouchListener(){
             @Override
-            public void onStartTrackingTouch(Slider announceFreq){}
-            public void onStopTrackingTouch(Slider announceFreq){
+            public void onStartTrackingTouch(@NonNull Slider announceFreq){}
+            public void onStopTrackingTouch(@NonNull Slider announceFreq){
                 model.announceInterval = announceFreq.getValue();
             }
         });
@@ -95,24 +134,13 @@ public class Settings extends Fragment {
     /*---ANNOUNCE RANGE SLIDER---*/
         speedRange.addOnSliderTouchListener(new RangeSlider.OnSliderTouchListener() {
             @Override
-            public void onStartTrackingTouch(RangeSlider speedRange) {}
+            public void onStartTrackingTouch(@NonNull RangeSlider speedRange) {}
 
             @Override
-            public void onStopTrackingTouch(RangeSlider speedRange) {
+            public void onStopTrackingTouch(@NonNull RangeSlider speedRange) {
                 List<Float> rangeValues = speedRange.getValues();
                 model.minAnnounceThreshold = rangeValues.get(0);
                 model.maxAnnounceThreshold = rangeValues.get(1);
-            }
-        });
-
-        Slider intervalSlider = view.findViewById(R.id.intervalSlider);
-        intervalSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
-            @Override
-            public void onStartTrackingTouch(Slider intervalSlider) {}
-
-            @Override
-            public void onStopTrackingTouch(Slider intervalSlider) {
-                float intervalValue = intervalSlider.getValue();
             }
         });
 

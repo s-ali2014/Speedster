@@ -15,7 +15,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="208dp"
         android:paddingBottom="0dp"
-        android:text="Announcement Mode"
+        android:text="Use Text to Speech?"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,27 +23,54 @@
         tools:layout_conversion_absoluteHeight="24dp"
         tools:layout_conversion_absoluteWidth="175dp" />
 
+
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="444dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="260dp"
         android:paddingBottom="0dp"
-        android:text="Notification Interval"
+        android:text="Play tone when over max speed?"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="24dp"
-        tools:layout_conversion_absoluteWidth="205dp" />
+        tools:layout_conversion_absoluteWidth="175dp" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/maxSpeedWarn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="296dp"
+        android:layout_marginTop="248dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/maxSpeedWarnSlider"
+        android:layout_width="284dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="328dp"
+        android:gravity="right"
+        android:hint="100"
+        android:maxEms="2"
+        android:stepSize="10.0"
+        android:valueFrom="30.0"
+        android:valueTo="150.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="45dp"
+        tools:layout_conversion_absoluteWidth="21dp" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/intervalSlider"
         android:layout_width="284dp"
         android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="468dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="416dp"
         android:gravity="right"
         android:hint="0"
         android:maxEms="2"
@@ -55,22 +82,59 @@
         tools:layout_conversion_absoluteHeight="45dp"
         tools:layout_conversion_absoluteWidth="21dp" />
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/maxSpeedWarn"
+    <com.google.android.material.slider.Slider
+        android:id="@+id/cooldownSlider"
+        android:layout_width="284dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="524dp"
+        android:gravity="right"
+        android:hint="0"
+        android:maxEms="2"
+        android:stepSize="1.0"
+        android:valueFrom="0.0"
+        android:valueTo="15.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="45dp"
+        tools:layout_conversion_absoluteWidth="21dp" />
+
+    <TextView
+        android:id="@+id/lblInterval"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="305dp"
-        android:text="Play tone when over max speed?"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="392dp"
+        android:paddingBottom="0dp"
+        android:text="Notification Interval"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="24dp"
+        tools:layout_conversion_absoluteWidth="205dp" />
+
+    <TextView
+        android:id="@+id/txtViewCooldown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="500dp"
+        android:paddingBottom="0dp"
+        android:text="Minimum Time Between Notifications"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="24dp"
+        tools:layout_conversion_absoluteWidth="205dp" />
 
     <com.google.android.material.slider.RangeSlider
         android:id="@+id/speedRange"
         android:layout_width="284dp"
 
         android:layout_height="41dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="148dp"
         android:gravity="right"
         android:hint="0"
@@ -86,7 +150,7 @@
         tools:layout_conversion_absoluteWidth="21dp" />
 
     <TextView
-        android:id="@+id/pageCounts"
+        android:id="@+id/lblMaxSpeed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -101,7 +165,7 @@
         tools:layout_conversion_absoluteWidth="91dp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/lblMinSpeed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -115,32 +179,36 @@
         tools:layout_conversion_absoluteHeight="24dp"
         tools:layout_conversion_absoluteWidth="87dp" />
 
-    <RadioButton
-        android:id="@+id/radSpeak"
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switchTTS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="232dp"
-        android:text="Spoken"
+        android:layout_marginStart="188dp"
+        android:layout_marginTop="196dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioButton
-        android:id="@+id/radTone"
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="232dp"
-        android:text="Tone"
-        app:layout_constraintStart_toEndOf="@+id/radSpeak"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Settings"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioGroup
-        android:id="@+id/announceModes"
-        android:layout_width="248dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="232dp"
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="300dp"
+        android:text="Speed to Warn"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

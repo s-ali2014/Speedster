@@ -6,8 +6,7 @@
 //Ryan Narongvate
 
 package com.example.announcementsloading;
-import android.media.AudioAttributes;
-import android.media.SoundPool;
+
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -17,32 +16,23 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Build;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.MutableLiveData;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
-
-import android.os.CountDownTimer;
-import android.speech.tts.TextToSpeech;
-
-
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.appcompat.app.AppCompatActivity;
-
-import androidx.viewpager2.widget.ViewPager2;
-
-import android.util.Log;
-import android.view.View;
-
-import android.widget.Toast;
-
 
 import java.util.Locale;
 
@@ -132,8 +122,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         SettingsViewModel.announceInterval = preferences.getFloat("announceInterval", 10);
         SettingsViewModel.useTTS = preferences.getBoolean("useTTS", true);
         SettingsViewModel.maxSpeedWarning = preferences.getBoolean("maxSpeedWarning", false);
-
-
+        SettingsViewModel.warnSpeed = preferences.getFloat("warnSpeed", 100);
+        SettingsViewModel.announceCooldown = preferences.getInt("announceCooldown", 5);
         /*--------------UI Interactive Elements--------------*/
         FloatingActionButton fab = findViewById(R.id.fab);
 
@@ -179,27 +169,36 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
 
         /*---Announcement System: Processing---*/
-        OverviewViewModel.speed.observe(this, new Observer<Integer>() {
-            //Observes speed value for changes, using those changes to do announcements.
-            @Override
-            public void onChanged(Integer s) {
-                //Handles announcement frequency here
-                int currentInterval = (int) (OverviewViewModel.speed.getValue() / SettingsViewModel.announceInterval);
+        //Observes speed value for changes, using those changes to do announcements.
+        OverviewViewModel.speed.observe(this, s -> {
+            //Handles announcement frequency here
+            int currentInterval = (int) (OverviewViewModel.speed.getValue() / SettingsViewModel.announceInterval);
 
-                if(OverviewViewModel.speed.getValue() >= SettingsViewModel.minAnnounceThreshold && OverviewViewModel.speed.getValue() <= SettingsViewModel.maxAnnounceThreshold){
-                    if (!onCooldown && currentInterval != previousAnnouncement) {
-                        if(SettingsViewModel.useTTS) {
-                            //TTS Announcement
-                           announceText.setValue(Integer.toString(OverviewViewModel.speed.getValue()));
-                        }
-                        else{
-                            //Tone Announcement
-                            tone.play(toneId, 1,1,0,0,1);
-                        }
-                        previousAnnouncement = currentInterval;
-                        onCooldown = true;
-                        cooldown.start();
+            if(OverviewViewModel.speed.getValue() >= SettingsViewModel.minAnnounceThreshold && OverviewViewModel.speed.getValue() <= SettingsViewModel.maxAnnounceThreshold){
+                if (!onCooldown && currentInterval != previousAnnouncement) {
+                    if(SettingsViewModel.useTTS) {
+                        //TTS Announcement
+                       announceText.setValue(Integer.toString(OverviewViewModel.speed.getValue()));
                     }
+                    else{
+                        //Tone Announcement
+                        tone.play(toneId, 1,1,0,0,1);
+                    }
+                    previousAnnouncement = currentInterval;
+                    onCooldown = true;
+                    cooldown.start();
+                }
+            }
+            if(OverviewViewModel.speed.getValue() >= SettingsViewModel.warnSpeed){
+                if(SettingsViewModel.useTTS) {
+                    //TTS Announcement
+                    tone.play(toneId, 1,1,0,0,1);
+                    speakText("Warning. Your speed is " + OverviewViewModel.speed.getValue());
+                }
+                else{
+                    //Tone Announcement
+                    tone.play(toneId, 1,1,0,0,1);
+                    tone.play(toneId, 1,1,0,0,1);
                 }
             }
         });
@@ -288,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
     public void speakText(){
         /*Speaks text from the announceText variable.*/
-        tts.speak(announceText.getValue(), TextToSpeech.QUEUE_FLUSH, null , "");
+        tts.speak("Your speed is " + announceText.getValue(), TextToSpeech.QUEUE_FLUSH, null , "");
     }
 
     public void speakText(CharSequence toSpeak){
@@ -298,8 +297,22 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
 
 
-    /*--------------Application Shutdown--------------*/
+    /*--------------Application Shutdown & OnPause--------------*/
+    protected void onPause() {
+        /*--------------Save Settings--------------*/
+        /*Saves all current settings to the app's preferences file. Might be worth looking into if this should be done onPause as well/instead*/
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putFloat("maxAnnounceThreshold", SettingsViewModel.maxAnnounceThreshold);
+        editor.putFloat("minAnnounceThreshold", SettingsViewModel.minAnnounceThreshold);
+        editor.putFloat("announceInterval", SettingsViewModel.announceInterval);
+        editor.putInt("announceCooldown", SettingsViewModel.announceCooldown);
+        editor.putBoolean("useTTS", SettingsViewModel.useTTS);
+        editor.putBoolean("maxSpeedWarning", SettingsViewModel.maxSpeedWarning);
+        editor.apply();
 
+        super.onPause();
+    }
     protected void onDestroy() {
         /*--------------Save Settings--------------*/
         /*Saves all current settings to the app's preferences file. Might be worth looking into if this should be done onPause as well/instead*/
@@ -311,6 +324,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         editor.putInt("announceCooldown", SettingsViewModel.announceCooldown);
         editor.putBoolean("useTTS", SettingsViewModel.useTTS);
         editor.putBoolean("maxSpeedWarning", SettingsViewModel.maxSpeedWarning);
+        editor.putFloat("warnSpeed", SettingsViewModel.warnSpeed);
         editor.apply();
 
         /*--------------Shutdowns--------------*/
