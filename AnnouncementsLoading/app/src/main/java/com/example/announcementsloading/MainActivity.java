@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
     private final String[] locationsPermission = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
     private final int LOCATIONS_PERMISSION_REQUEST = 100;
-    private BroadcastReceiver locationReceiver;
+
 
     //GLOBAL-ENOUGH VARIABLES
     TextToSpeech tts;
@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
 
         checkLocationPermission();
-        initLocationReceiver();
     }
 
 
@@ -201,30 +200,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         //TODO show dialog that describe to user how denying location permission will affect the app functionality
     }
 
-    private void initLocationReceiver() {
-        locationReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(MyLocationService.NEW_SPEED_RECORDED_ACTION)) {
-                    int speed = intent.getIntExtra(MyLocationService.SPEED_TAG, 0);
-                    //TODO do what you need todo in the new speed
-                    Toast.makeText(MainActivity.this, "Speed: " + speed, Toast.LENGTH_LONG).show();
-                }
-            }
-        };
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(locationReceiver, new IntentFilter(MyLocationService.NEW_SPEED_RECORDED_ACTION));
-    }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(locationReceiver);
-    }
+
 
     //Notes from Anna:
     //Announcement System:

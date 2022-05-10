@@ -1,10 +1,18 @@
 package com.example.announcementsloading;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 /**
@@ -18,6 +26,10 @@ public class Overview extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private BroadcastReceiver locationReceiver;
+
+    private EditText etSpeed;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -60,4 +72,39 @@ public class Overview extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        etSpeed = view.findViewById(R.id.editTextNumber3);
+        initLocationReceiver();
+    }
+
+    private void initLocationReceiver() {
+        locationReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().equals(MyLocationService.NEW_SPEED_RECORDED_ACTION)) {
+                    float speed = intent.getFloatExtra(MyLocationService.SPEED_TAG, 0F);
+                    String speedStr = speed + "";
+                    if (etSpeed != null)
+                        etSpeed.setText(speedStr);
+                    Toast.makeText(requireContext(), "Speed: " + speed, Toast.LENGTH_LONG).show();
+                }
+            }
+        };
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireContext().registerReceiver(locationReceiver, new IntentFilter(MyLocationService.NEW_SPEED_RECORDED_ACTION));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        requireContext().unregisterReceiver(locationReceiver);
+    }
+
 }

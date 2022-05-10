@@ -17,7 +17,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            createNotificationChannel(MyLocationService.LOCATION_FOREGROUND_SERVICE_CHANNEL_ID, MyLocationService.LOCATION_FOREGROUND_SERVICE_CHANNEL_TITLE);
+            createNotificationChannel(MyLocationService.LOCATION_FOREGROUND_SERVICE_CHANNEL_ID,
+                    MyLocationService.LOCATION_FOREGROUND_SERVICE_CHANNEL_TITLE);
     }
 
 
