@@ -94,12 +94,13 @@ public class Settings extends Fragment {
         cooldown.setValue(model.announceCooldown);
         useTTS.setChecked(model.useTTS);
         maxSpeedWarn.setChecked(model.maxSpeedWarning);
+        announceFreq.setValue(model.announceInterval);
 
     /*USE TTS SWITCH*/
     useTTS.setOnCheckedChangeListener((compoundButton, b) -> model.useTTS = useTTS.isChecked()
     );
     /*MAX SPEED WARN SWITCH*/
-        maxSpeedWarn.setOnCheckedChangeListener((compoundButton, b) -> model.useTTS = useTTS.isChecked()
+        maxSpeedWarn.setOnCheckedChangeListener((compoundButton, b) -> model.maxSpeedWarning = maxSpeedWarn.isChecked()
         );
 
     /*COOLDOWN SLIDER*/

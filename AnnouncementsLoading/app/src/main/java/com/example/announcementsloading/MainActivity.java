@@ -300,7 +300,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     /*--------------Application Shutdown & OnPause--------------*/
     protected void onPause() {
         /*--------------Save Settings--------------*/
-        /*Saves all current settings to the app's preferences file. Might be worth looking into if this should be done onPause as well/instead*/
+        /*Saves all current settings to the app's preferences file.*/
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putFloat("maxAnnounceThreshold", SettingsViewModel.maxAnnounceThreshold);
@@ -309,6 +309,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         editor.putInt("announceCooldown", SettingsViewModel.announceCooldown);
         editor.putBoolean("useTTS", SettingsViewModel.useTTS);
         editor.putBoolean("maxSpeedWarning", SettingsViewModel.maxSpeedWarning);
+        editor.putFloat("warnSpeed", SettingsViewModel.warnSpeed);
         editor.apply();
 
         super.onPause();
